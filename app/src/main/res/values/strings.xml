@@ -1,0 +1,17 @@
+<resources>
+    <string name="app_name">Virality video collage</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="trimming_progress">Trimming your video…</string>
+    <string name="short_seconds">sec</string>
+
+    <string name="megabyte">MB</string>
+    <string name="kilobyte">KB</string>
+    <string name="cancel">Cancel</string>
+    <string name="save">Save</string>
+
+    <dimen name="fab_elevation">5dp</dimen>
+    <dimen name="fab_rise">3dp</dimen>
+    <integer name="fab_duration">100</integer>
+</resources>

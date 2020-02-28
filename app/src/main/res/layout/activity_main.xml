@@ -1,0 +1,218 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity"
+    android:background="@color/colorAccent">
+
+
+    <VideoView
+        android:id="@+id/vv_bg"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="60dp" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginBottom="60dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:weightSum="1">
+
+            <LinearLayout
+
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="0.5"
+                android:weightSum="1"
+                android:orientation="horizontal">
+
+                <LinearLayout
+                    android:id="@+id/ll1"
+                    android:layout_weight="0.5"
+                    android:layout_width="0dp"
+                    android:gravity="end|bottom"
+                    android:layout_margin="15dp"
+                    android:padding="5dp"
+                    android:layout_height="match_parent">
+
+                    <VideoView
+                        android:id="@+id/vv1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent" />
+
+                </LinearLayout>
+                <LinearLayout
+                    android:id="@+id/ll2"
+                    android:layout_weight="0.5"
+                    android:layout_width="0dp"
+                    android:gravity="start|bottom"
+                    android:layout_margin="15dp"
+                    android:padding="5dp"
+                    android:layout_height="match_parent">
+
+                    <VideoView
+                        android:id="@+id/vv2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent" />
+
+                </LinearLayout>
+
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="0.5"
+                android:weightSum="1"
+                android:orientation="horizontal">
+
+                <LinearLayout
+                    android:id="@+id/ll3"
+                    android:layout_weight="0.5"
+                    android:layout_width="0dp"
+                    android:gravity="end|top"
+                    android:layout_marginStart="15dp"
+                    android:layout_marginEnd="15dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginBottom="40dp"
+                    android:padding="5dp"
+                    android:layout_height="match_parent">
+
+                    <VideoView
+                        android:id="@+id/vv3"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent" />
+
+                </LinearLayout>
+                <LinearLayout
+                    android:id="@+id/ll4"
+                    android:layout_weight="0.5"
+                    android:layout_width="0dp"
+                    android:gravity="start|top"
+                    android:layout_marginStart="15dp"
+                    android:layout_marginEnd="15dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginBottom="40dp"
+                    android:padding="5dp"
+                    android:layout_height="match_parent">
+
+                    <VideoView
+                        android:id="@+id/vv4"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent" />
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <FrameLayout
+            android:id="@+id/logo_frame"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingBottom="20dp"
+            android:layout_centerInParent="true">
+
+<!--            <com.project.vidmerge.Utils.CircleSurface-->
+<!--                android:visibility="gone"-->
+<!--                android:id="@+id/vv_logo"-->
+<!--                android:layout_width="150dp"-->
+<!--                android:layout_height="150dp"/>-->
+
+        </FrameLayout>
+
+    </RelativeLayout>
+
+    <LinearLayout
+        android:id="@+id/ll_menu"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:orientation="horizontal"
+        android:gravity="center"
+        android:layout_alignParentBottom="true">
+
+        <TextView
+            android:id="@+id/tv_merge"
+            android:layout_width="120dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="20dp"
+            android:layout_marginStart="10dp"
+            android:fontFamily="sans-serif-black"
+            android:textStyle="italic"
+            android:gravity="center"
+            android:padding="5dp"
+            android:background="@drawable/button_bg"
+            android:text="Finish"
+            android:textColor="@android:color/white"
+            android:textSize="20sp" />
+
+        <ImageView
+            android:id="@+id/iv_swap"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_margin="3dp"
+            android:src="@drawable/ic_swap"/>
+
+        <TextView
+            android:visibility="gone"
+            android:id="@+id/tv_cancel"
+            android:layout_width="120dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="30dp"
+            android:layout_marginStart="30dp"
+            android:fontFamily="sans-serif-black"
+            android:textStyle="italic"
+            android:gravity="center"
+            android:padding="5dp"
+            android:background="@drawable/button_bg"
+            android:text="cancel"
+            android:textColor="@android:color/white"
+            android:textSize="20sp" />
+
+
+        <LinearLayout
+            android:id="@+id/ll_options"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:orientation="horizontal"
+            android:gravity="center">
+
+            <ImageView
+                android:id="@+id/iv_select_new_file"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_margin="3dp"
+                android:src="@drawable/ic_attach_file"/>
+            <ImageView
+                android:id="@+id/iv_mute"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_margin="3dp"
+                android:src="@drawable/ic_volume_on"/>
+            <ImageView
+                android:id="@+id/iv_trim"
+                android:layout_width="45dp"
+                android:layout_height="45dp"
+                android:layout_margin="3dp"
+                android:src="@drawable/ic_trim"/>
+            <ImageView
+                android:visibility="gone"
+                android:id="@+id/iv_create_collage"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_margin="3dp"
+                android:src="@drawable/ic_make_collage"/>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+
+</RelativeLayout>
