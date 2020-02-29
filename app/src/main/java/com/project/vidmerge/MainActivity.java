@@ -800,8 +800,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     }
     public void loadVideo1(String path){
-
-        vv1.setVideoURI(Uri.fromFile(new File(path)));
+        Uri uri=Uri.parse(path);
+        vv1.setVideoURI(uri);
 
         vv1.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
             @Override

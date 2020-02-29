@@ -19,18 +19,18 @@
         android:layout_height="match_parent"
         android:layout_marginBottom="60dp">
 
-        <LinearLayout
+        <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical"
-            android:weightSum="1">
+            >
 
             <LinearLayout
 
                 android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="0.5"
+                android:layout_height="wrap_content"
                 android:weightSum="1"
+                android:id="@+id/rel_layout_1"
                 android:orientation="horizontal">
 
                 <LinearLayout
@@ -40,7 +40,7 @@
                     android:gravity="end|bottom"
                     android:layout_margin="15dp"
                     android:padding="5dp"
-                    android:layout_height="match_parent">
+                    android:layout_height="330dp">
 
                     <VideoView
                         android:id="@+id/vv1"
@@ -55,7 +55,7 @@
                     android:gravity="start|bottom"
                     android:layout_margin="15dp"
                     android:padding="5dp"
-                    android:layout_height="match_parent">
+                    android:layout_height="330dp">
 
                     <VideoView
                         android:id="@+id/vv2"
@@ -67,22 +67,20 @@
             </LinearLayout>
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="0.5"
-                android:weightSum="1"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/rel_layout_1"
                 android:orientation="horizontal">
 
                 <LinearLayout
                     android:id="@+id/ll3"
                     android:layout_weight="0.5"
                     android:layout_width="0dp"
-                    android:gravity="end|top"
                     android:layout_marginStart="15dp"
                     android:layout_marginEnd="15dp"
-                    android:layout_marginTop="5dp"
-                    android:layout_marginBottom="40dp"
+                    android:layout_marginTop="1dp"
+                    android:layout_marginBottom="20dp"
                     android:padding="5dp"
-                    android:layout_height="match_parent">
+                    android:layout_height="330dp">
 
                     <VideoView
                         android:id="@+id/vv3"
@@ -94,13 +92,12 @@
                     android:id="@+id/ll4"
                     android:layout_weight="0.5"
                     android:layout_width="0dp"
-                    android:gravity="start|top"
                     android:layout_marginStart="15dp"
                     android:layout_marginEnd="15dp"
-                    android:layout_marginTop="5dp"
-                    android:layout_marginBottom="40dp"
+                    android:layout_marginTop="1dp"
+                    android:layout_marginBottom="20dp"
                     android:padding="5dp"
-                    android:layout_height="match_parent">
+                    android:layout_height="330dp">
 
                     <VideoView
                         android:id="@+id/vv4"
@@ -111,7 +108,7 @@
 
             </LinearLayout>
 
-        </LinearLayout>
+        </RelativeLayout>
 
         <FrameLayout
             android:id="@+id/logo_frame"
