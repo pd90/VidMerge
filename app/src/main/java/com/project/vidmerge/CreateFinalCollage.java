@@ -198,7 +198,8 @@ public class CreateFinalCollage extends AppCompatActivity {
 
 //        String[] saveMergedVideo = new String[]{"-i",path_vv1,"-i",path_vv1,"-filter_complex","hstack",mFileName };
 //        String[] saveMergedVideo = new String[]{"-i", path_vv1, "-i", path_vv1, "-i", path_vv1, "-i", path_vv1, "-filter_complex", "[0:v][1:v][2:v][3:v]xstack=inputs=4:layout=0_0|w0_0|0_h0|w0_h0[v]", "-map", "[v]",mFileName };
-// selected for four video without padding      String[] saveMergedVideo = new String[]{"-i", path_vv1, "-i", path_vv1, "-i", path_vv1, "-i", path_vv1, "-filter_complex", "[0:v][1:v]hstack=inputs=2[top];[2:v][3:v]hstack=inputs=2[bottom];[top][bottom]vstack=inputs=2[v]", "-map", "[v]", mFileName};
+// selected for four video without padding
+//     String[] saveMergedVideo = new String[]{"-i", path_vv1, "-i", path_vv1, "-i", path_vv1, "-i", path_vv1, "-filter_complex", "[0:v][1:v]hstack=inputs=2[top];[2:v][3:v]hstack=inputs=2[bottom];[top][bottom]vstack=inputs=2[v]", "-map", "[v]", mFileName};
         String[] saveMergedVideo = new String[]{"-i", path_vv1, "-i", path_vv3, "-i", path_vv2, "-i", path_vv4, "-filter_complex",
                 "[0:v]pad=iw:ih+15[tl];[tl][1:v]vstack,pad=iw+15:ih[l];[2:v]pad=iw:ih+15[tr];[tr][3:v]vstack[r];[l][r]hstack", mFileName};
 
