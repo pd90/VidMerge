@@ -137,7 +137,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         width  = displayMetrics.widthPixels;
         Log.e("height",String.valueOf(height));
         Log.e("width",String.valueOf(width));
-
         isVideoTrimmed=false;
         HelperClass.getPhoneHeightWidth(this);
         try {
@@ -171,10 +170,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         LinearLayout.LayoutParams params3 = (LinearLayout.LayoutParams) ll3.getLayoutParams();
         LinearLayout.LayoutParams params4 = (LinearLayout.LayoutParams) ll4.getLayoutParams();
         if(density>320&&density<480) {
-            params1.height = height - 150;
-            params2.height = height - 150;
-            params3.height = height - 150;
-            params4.height = height - 150;
+            params1.height = height - 180;
+            params2.height = height - 180;
+            params3.height = height - 180;
+            params4.height = height - 180;
         }else if(density>DisplayMetrics.DENSITY_HIGH&&density<320){
             params1.height = height - 100;
             params2.height = height - 100;
@@ -690,6 +689,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     else
                         filePath = GetFilePathFromDevice.getPath(MainActivity.this, data.getData());
                     Log.e("FILE PATH", "---" + filePath);
+                    isToAddWatermark = true;
+                    selectVVToLoadVideoInVideoView(filePath);
 
                     Uri uri = data.getData();
                     String uriString = uri.toString();
@@ -738,8 +739,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         String[] fileNameArr = path.split("/");
 
         if(extensionList.contains(extension_splited)) {
-            isToSetResolution = true;
-            selectVVToLoadVideoInVideoView(filePath);
+          /*  isToSetResolution = true;
+            selectVVToLoadVideoInVideoView(filePath);*/
             System.out.println("added file extension: " + extension);
             attached_fileSize = fileSize;
             attached_fileName = fileNameArr[fileNameArr.length-1];
@@ -777,7 +778,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             }
             if(isToSetResolution) {
 //                executeWaterMarkCommand(filesPath);
-                executeMaintainAspectRatioCommand(filesPath);
+                //executeMaintainAspectRatioCommand(filesPath);
                 isToSetResolution=false;
             } if(isToAddWatermark) {
                 executeWaterMarkCommand(filesPath);
@@ -1487,7 +1488,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         });
     }
     public void executeWaterMarkCommand(final String preFilePath) throws FFmpegCommandAlreadyRunningException {
-
+        progressBar = new ProgressDialog(this);
+        progressBar.setCancelable(false);//you can cancel it by pressing back button
+        progressBar.setMessage("Loading ...");
+        progressBar.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
+        progressBar.setProgress(0);//initially progress is 0
+        progressBar.setMax(100);//sets the maximum value 100
+        progressBar.show();//displays the progress bar
 //        final ProgressDialog progressDialog = ProgressDialog.show(this, "", "Please wait...", true);
         createDirectory();
         String logo = Environment.getExternalStorageDirectory().getAbsolutePath().toString()+"/num"+(selected_vv)+".png";
@@ -1497,7 +1504,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         System.out.println("::logo::"+logo);
 //        String[] cutVideo = {"-ss", "" + startTime / 1000, "-y", "-i", videoPath, "-t", "" + (videoMillis - startTime-(videoMillis-endTime)) / 1000, "-s", "320x240", "-r", "15", "-vcodec", "mpeg4", "-b:v", "2097152", "-b:a", "48000", "-ac", "2", "-ar", "22050", mFileName};
 //        String[] addWatermark ={"-i", preFilePath, "-i", logo, "-filter_complex", "overlay=10:main_h-overlay_h-10", mFileName};
-        String[] addWatermark ={"-i", preFilePath, "-i", logo, "-filter_complex", "overlay=(main_w-overlay_w)/2:main_h-overlay_h", mFileName};
+        String[] addWatermark ={"-i", preFilePath, "-i", logo, "-filter_complex", "overlay=(main_w-overlay_w)/2:main_h-overlay_h","-vcodec", "h264", "-b:v", "2097152","-b:a", "48000","-c:v", "libx264",  "-preset", "ultrafast","-c:a", "copy","-me_method","zero","-tune","fastdecode","-tune","zerolatency","-strict","2","-pix_fmt","yuv420p", "-crf", "28", "-acodec", "aac", "-ar", "22050", "-ac", "2","-r","20", mFileName};
 //        "ffmpeg -i input.mp4 -i logo.png -filter_complex \\\n" +
 //                "\"overlay=(main_w-overlay_w)/2:(main_h-overlay_h)/2\" \\\n" +
 //                "-codec:a copy output.mp4"
@@ -1508,7 +1515,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 //        if(!myDir.exists())
 //            myDir.mkdirs();
 
-//        mProgressCalculator = new ProgressCalculator();
+        mProgressCalculator = new ProgressCalculator();
         final String finalMFileName = mFileName;
         fFmpeg.execute(addWatermark, new ExecuteBinaryResponseHandler(){
             @Override
@@ -1525,15 +1532,21 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 status = RUNNING;
                 Log.e("VideoCronProgress", message);
                 int progress = mProgressCalculator.calcProgress(message);
-                Log.e("VideoCronProgress == ", progress + "..");
                 if (progress != 0 && progress <= 100) {
                     if (progress >= 99) {
+                        progressBar.setMessage("Almost done!");
                         progress = 100;
                     }
-                    if(progress>50)
-                        progressBar.setProgress(progress);
+                    progressBar.setProgress(progress);
                     System.out.println("pro_progress"+progress+"%%");
 //                    listener.onProgress(progress);
+                }
+                if(progress==50){
+                    progressBar.setMessage("Compressing Video, Please wait!!");
+                }
+                if(progress==100){
+                    Log.e("i am ","here");
+                    progressBar.setProgress(100);
                 }
                 System.out.println("command:onProgress:"+message);
             }
@@ -1578,13 +1591,15 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 //        String[] addWatermark ={"-i", preFilePath, "-i", logo, "-filter_complex", "overlay=10:main_h-overlay_h-10", mFileName};
         String[] aspectRatioSelected=new String[]{};
         if(resolution_type==1) {
-            aspectRatioSelected = new String[]{"-y","-i", preFilePath,"-strict", "experimental", "-vcodec", "h264", "-b:v", "150k","-b:a", "48000","-c:v", "libx264",  "-preset", "ultrafast","-c:a", "copy", "-crf", "28", "-acodec", "aac", "-ar", "22050", "-ac", "2", "-s", "240x320", "-aspect", "3:4", mFileName};
+            //aspectRatioSelected = new String[]{"-i", preFilePath,"-vcodec", "h264", "-b:v", "1000k","-b:a", "48000","-c:v", "libx264",  "-preset", "ultrafast","-c:a", "copy","-me_method","zero","-tune","fastdecode","-tune","zerolatency","-strict","2","-pix_fmt","yuv420p", "-crf", "28", "-acodec", "aac", "-ar", "22050", "-ac", "2", "-s", "240x320","-r","20", "-aspect", "3:4", mFileName};
+            aspectRatioSelected = new String[]{"-i", preFilePath, "-vf", "scale=240x320,setdar=3:4", mFileName};
         }else {
-            aspectRatioSelected = new String[]{"-y","-i", preFilePath,"-strict", "experimental", "-vcodec", "h264", "-b:v", "150k","-b:a", "48000","-c:v", "libx264",  "-preset", "ultrafast","-c:a", "copy", "-crf", "28", "-acodec", "aac", "-ar", "22050", "-ac", "2", "-s", "406x720", "-aspect", "9:16", mFileName};
-            //aspectRatioSelected = new String[]{"-i", preFilePath, "-vf", "scale=406x720,setdar=9:16", mFileName};
+            //aspectRatioSelected = new String[]{"-y","-i", preFilePath,"-vcodec", "h264", "-b:v", "1000k","-b:a", "48000","-c:v", "libx264",  "-preset", "ultrafast","-c:a", "copy","-me_method","zero","-tune","fastdecode","-tune","zerolatency","-strict","2", "-pix_fmt","yuv420p","-crf", "28", "-acodec", "aac", "-ar", "22050", "-ac", "2", "-s", "406x720","-r","20", "-aspect", "9:16", mFileName};
+            aspectRatioSelected = new String[]{"-i", preFilePath, "-vf", "scale=406x720,setdar=9:16", mFileName};
         }
 
         mProgressCalculator = new ProgressCalculator();
+
         final String finalMFileName = mFileName;
         fFmpeg.execute(aspectRatioSelected, new ExecuteBinaryResponseHandler(){
             @Override
@@ -1604,6 +1619,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                         int progress = mProgressCalculator.calcProgress(message);
                         Log.e("VideoCronProgress == ", progress + "..");
                         if (progress != 0 && progress <= 100) {
+                            if (progress >= 99) {
+                                progressBar.setMessage("Almost done!");
+                                progress = 100;
+                            }
                             progressBar.setProgress(progress);
                             System.out.println("pro_progress"+progress+"%%");
 //                    listener.onProgress(progress);
@@ -1611,12 +1630,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                         if(progress==50){
                             progressBar.setMessage("Compressing Video, Please wait!!");
                         }
-                        if(progress==99){
-                            progressBar.setMessage("Almost done!");
-                        }
                         if(progress==100){
                             Log.e("i am ","here");
-                            progressBar.dismiss();
+                            progressBar.setProgress(100);
                         }
                         System.out.println("command:onProgress:"+message);
                     }
