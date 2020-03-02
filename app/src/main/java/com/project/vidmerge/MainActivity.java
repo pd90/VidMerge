@@ -30,6 +30,7 @@ import android.provider.OpenableColumns;
 import android.text.Html;
 import android.text.TextUtils;
 import android.util.AttributeSet;
+import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.SurfaceHolder;
@@ -120,7 +121,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public static final int NONE = 3;
     public static final int RUNNING = 4;
     private int status = NONE;
-
+    int height,width;
 //    CircleSurface surface;
 //    MediaPlayer player;
 
@@ -128,6 +129,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        DisplayMetrics displayMetrics = new DisplayMetrics();
+        getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
+        int density =displayMetrics.densityDpi;
+        Log.e("density",String.valueOf(density));
+        height = displayMetrics.heightPixels/2;
+        width  = displayMetrics.widthPixels;
+        Log.e("height",String.valueOf(height));
+        Log.e("width",String.valueOf(width));
 
         isVideoTrimmed=false;
         HelperClass.getPhoneHeightWidth(this);
@@ -145,12 +154,43 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         vv3 = findViewById(R.id.vv3);
         vv4 = findViewById(R.id.vv4);
         ll1 = findViewById(R.id.ll1);
+        // set params layout 1
+
+        Log.e("height",String.valueOf(height - 150));
+
         ll2 = findViewById(R.id.ll2);
+
         ll3 = findViewById(R.id.ll3);
+
         ll4 = findViewById(R.id.ll4);
+
         ll_menu = findViewById(R.id.ll_menu);
         ll_options = findViewById(R.id.ll_options);
-
+        LinearLayout.LayoutParams params1 = (LinearLayout.LayoutParams) ll1.getLayoutParams();
+        LinearLayout.LayoutParams params2= (LinearLayout.LayoutParams) ll2.getLayoutParams();
+        LinearLayout.LayoutParams params3 = (LinearLayout.LayoutParams) ll3.getLayoutParams();
+        LinearLayout.LayoutParams params4 = (LinearLayout.LayoutParams) ll4.getLayoutParams();
+        if(density>320&&density<480) {
+            params1.height = height - 150;
+            params2.height = height - 150;
+            params3.height = height - 150;
+            params4.height = height - 150;
+        }else if(density>DisplayMetrics.DENSITY_HIGH&&density<320){
+            params1.height = height - 100;
+            params2.height = height - 100;
+            params3.height = height - 100;
+            params4.height = height - 100;
+        }
+        else if(density<DisplayMetrics.DENSITY_HIGH&&density>DisplayMetrics.DENSITY_MEDIUM){
+            params1.height = height - 50;
+            params2.height = height - 50;
+            params3.height = height - 50;
+            params4.height = height - 50;
+        }
+        ll1.setLayoutParams(params1);
+        ll2.setLayoutParams(params2);
+        ll3.setLayoutParams(params3);
+        ll4.setLayoutParams(params4);
         iv_swap = findViewById(R.id.iv_swap);
         iv_select_new_file = findViewById(R.id.iv_select_new_file);
         iv_mute = findViewById(R.id.iv_mute);
@@ -189,7 +229,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         String path ="";
         if(type==1)
-            path = "android.resource://" + getPackageName() + "/" + R.raw.blue_bg;
+            path = "android.resource://" + getPackageName() + "/" + R.raw.blue_new;
         else if(type==2)
             path = "android.resource://" + getPackageName() + "/" + R.raw.green_bg;
         else if(type==3)
@@ -987,9 +1027,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public void setLayoutSelected(){
         if(selected_vv==1){
             ll1.setBackgroundResource(R.drawable.selection_bg);
-            ll2.setBackgroundResource(NULL);
-            ll3.setBackgroundResource(NULL);
-            ll4.setBackgroundResource(NULL);
+            ll2.setBackgroundResource(R.drawable.main_lay_background);
+            ll3.setBackgroundResource(R.drawable.main_lay_background);
+            ll4.setBackgroundResource(R.drawable.main_lay_background);
             if(!videosMuteStatus[0])
                 iv_mute.setImageResource(R.drawable.ic_volume_on);
 //                tv_mute.setText("Mute This Video");
@@ -997,10 +1037,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 iv_mute.setImageResource(R.drawable.ic_volume_off);
 //                tv_mute.setText("Un mute This Video");
         }else if(selected_vv==2){
-            ll1.setBackgroundResource(NULL);
+            ll1.setBackgroundResource(R.drawable.main_lay_background);
             ll2.setBackgroundResource(R.drawable.selection_bg);
-            ll3.setBackgroundResource(NULL);
-            ll4.setBackgroundResource(NULL);
+            ll3.setBackgroundResource(R.drawable.main_lay_background);
+            ll4.setBackgroundResource(R.drawable.main_lay_background);
             if(!videosMuteStatus[1])
                 iv_mute.setImageResource(R.drawable.ic_volume_on);
 //                tv_mute.setText("Mute This Video");
@@ -1008,10 +1048,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 iv_mute.setImageResource(R.drawable.ic_volume_off);
 //                tv_mute.setText("Un mute This Video");
         }else if(selected_vv==3){
-            ll1.setBackgroundResource(NULL);
-            ll2.setBackgroundResource(NULL);
+            ll1.setBackgroundResource(R.drawable.main_lay_background);
+            ll2.setBackgroundResource(R.drawable.main_lay_background);
             ll3.setBackgroundResource(R.drawable.selection_bg);
-            ll4.setBackgroundResource(NULL);
+            ll4.setBackgroundResource(R.drawable.main_lay_background);
             if(!videosMuteStatus[2])
                 iv_mute.setImageResource(R.drawable.ic_volume_on);
 //                tv_mute.setText("Mute This Video");
@@ -1019,9 +1059,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 iv_mute.setImageResource(R.drawable.ic_volume_off);
 //                tv_mute.setText("Un mute This Video");
         }else if(selected_vv==4){
-            ll1.setBackgroundResource(NULL);
-            ll2.setBackgroundResource(NULL);
-            ll3.setBackgroundResource(NULL);
+            ll1.setBackgroundResource(R.drawable.main_lay_background);
+            ll2.setBackgroundResource(R.drawable.main_lay_background);
+            ll3.setBackgroundResource(R.drawable.main_lay_background);
             ll4.setBackgroundResource(R.drawable.selection_bg);
             if(!videosMuteStatus[3])
                 iv_mute.setImageResource(R.drawable.ic_volume_on);
@@ -1528,7 +1568,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         progressBar.setMax(100);//sets the maximum value 100
         progressBar.show();//displays the progress bar
 
-//        progressDialogResWatMark = ProgressDialog.show(this, "", "Loading...", true);
+//      progressDialogResWatMark = ProgressDialog.show(this, "", "Loading...", true);
         createDirectory();
         String logo = Environment.getExternalStorageDirectory().getAbsolutePath().toString()+"/num"+(selected_vv)+".png";
         String timeMillis = String.valueOf(new Date().getTime());
@@ -1538,9 +1578,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 //        String[] addWatermark ={"-i", preFilePath, "-i", logo, "-filter_complex", "overlay=10:main_h-overlay_h-10", mFileName};
         String[] aspectRatioSelected=new String[]{};
         if(resolution_type==1) {
-            aspectRatioSelected = new String[]{"-i", preFilePath, "-vf", "scale=240x320,setdar=3:4", mFileName};
+            aspectRatioSelected = new String[]{"-y","-i", preFilePath,"-strict", "experimental", "-vcodec", "h264", "-b:v", "150k","-b:a", "48000","-c:v", "libx264",  "-preset", "ultrafast","-c:a", "copy", "-crf", "28", "-acodec", "aac", "-ar", "22050", "-ac", "2", "-s", "240x320", "-aspect", "3:4", mFileName};
         }else {
-            aspectRatioSelected = new String[]{"-i", preFilePath, "-vf", "scale=406x720,setdar=9:16", mFileName};
+            aspectRatioSelected = new String[]{"-y","-i", preFilePath,"-strict", "experimental", "-vcodec", "h264", "-b:v", "150k","-b:a", "48000","-c:v", "libx264",  "-preset", "ultrafast","-c:a", "copy", "-crf", "28", "-acodec", "aac", "-ar", "22050", "-ac", "2", "-s", "406x720", "-aspect", "9:16", mFileName};
+            //aspectRatioSelected = new String[]{"-i", preFilePath, "-vf", "scale=406x720,setdar=9:16", mFileName};
         }
 
         mProgressCalculator = new ProgressCalculator();
@@ -1556,19 +1597,30 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             }
 
             @Override
-            public void onProgress(String message) {
-                int progress = mProgressCalculator.calcProgress(message);
-                Log.e("VideoCronProgress == ", progress + "..");
-                if (progress != 0 && progress <= 100) {
-                    if (progress >= 99) {
-                        progress = 100;
-                    }
-                    if(progress<=50)
-                        progressBar.setProgress(progress);
-                    System.out.println("pro_progress"+progress+"%%");
+            public void onProgress(final String message) {
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        int progress = mProgressCalculator.calcProgress(message);
+                        Log.e("VideoCronProgress == ", progress + "..");
+                        if (progress != 0 && progress <= 100) {
+                            progressBar.setProgress(progress);
+                            System.out.println("pro_progress"+progress+"%%");
 //                    listener.onProgress(progress);
-                }
-                System.out.println("command:onProgress:"+message);
+                        }
+                        if(progress==50){
+                            progressBar.setMessage("Compressing Video, Please wait!!");
+                        }
+                        if(progress==99){
+                            progressBar.setMessage("Almost done!");
+                        }
+                        if(progress==100){
+                            Log.e("i am ","here");
+                            progressBar.dismiss();
+                        }
+                        System.out.println("command:onProgress:"+message);
+                    }
+                });
             }
 
             @Override

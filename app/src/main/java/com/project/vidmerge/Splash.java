@@ -25,12 +25,7 @@ public class Splash extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
-        DisplayMetrics displayMetrics = new DisplayMetrics();
-        getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
-        int height = displayMetrics.heightPixels;
-        int width = displayMetrics.widthPixels;
-        Log.e("height",String.valueOf(height/2));
-        Log.e("width",String.valueOf(width));
+
         vv_bg = findViewById(R.id.vv_bg);
         String path = "android.resource://" + getPackageName() + "/" + R.raw.open;
         loadVideoBg(path);
