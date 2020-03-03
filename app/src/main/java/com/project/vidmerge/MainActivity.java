@@ -104,7 +104,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private int PICK_FILE_REQUEST_CODE = 11;
 
     //upload file
-    static String filePath = "";
+    String filePath1 = "",filePath2 = "",filePath3 = "",filePath4 = "";
     int fileSize;
     File myFile;
     String displayName = "";
@@ -157,7 +157,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         vv4 = findViewById(R.id.vv4);
         ll1 = findViewById(R.id.ll1);
         // set params layout 1
-       // circularProgressBar = findViewById(R.id.circularProgressBar);
+        circularProgressBar = findViewById(R.id.circularProgressBar);
 
         Log.e("height",String.valueOf(height - 150));
 
@@ -226,6 +226,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         iv_mute_button1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                selected_vv=1;
                 if(!videosMuteStatus[0]) {
                     try {
                         executeRemoveAudiFromVideoCommand(path_vv1);
@@ -241,9 +242,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         iv_un_mute_button1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                selected_vv=1;
                 if(videosMuteStatus[0]) {
                     try {
-                        executeWaterMarkCommandVideo1(filePath);
+                        executeWaterMarkCommandVideo1(filePath1);
                     } catch (FFmpegCommandAlreadyRunningException e) {
                         e.printStackTrace();
                     }
@@ -258,6 +260,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         iv_mute_button2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                selected_vv=2;
                 if(!videosMuteStatus[1]) {
                     try {
                         executeRemoveAudiFromVideoCommand(path_vv2);
@@ -273,9 +276,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         iv_un_mute_button2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                selected_vv=2;
                 if(videosMuteStatus[1]) {
                     try {
-                        executeWaterMarkCommandVideo2(filePath);
+                        executeWaterMarkCommandVideo2(filePath2);
                     } catch (FFmpegCommandAlreadyRunningException e) {
                         e.printStackTrace();
                     }
@@ -289,6 +293,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         iv_mute_button3.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                selected_vv=3;
                 if(!videosMuteStatus[2]) {
                     try {
                         executeRemoveAudiFromVideoCommand(path_vv3);
@@ -304,9 +309,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         iv_un_mute_button3.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                selected_vv=3;
                 if(videosMuteStatus[2]) {
                     try {
-                        executeWaterMarkCommandVideo3(filePath);
+                        executeWaterMarkCommandVideo3(filePath3);
                     } catch (FFmpegCommandAlreadyRunningException e) {
                         e.printStackTrace();
                     }
@@ -321,6 +327,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         iv_mute_button4.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                selected_vv=4;
                 if(!videosMuteStatus[3]) {
                     try {
                         executeRemoveAudiFromVideoCommand(path_vv4);
@@ -336,9 +343,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         iv_un_mute_button4.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                selected_vv=4;
                 if(videosMuteStatus[3]) {
                     try {
-                        executeWaterMarkCommandVideo4(filePath);
+                        executeWaterMarkCommandVideo4(filePath4);
                     } catch (FFmpegCommandAlreadyRunningException e) {
                         e.printStackTrace();
                     }
@@ -819,18 +827,41 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (resultCode == RESULT_OK) {
-            filePath="";
             if (requestCode == PICK_FILE_REQUEST_CODE) {
                 try {
                     displayOptions();
 //                    videosMuteStatus = new boolean[]{false, false, false, false};
                     System.out.println(":::File URI:::"+data.getData());
                     String file_uri = data.getData().toString();
-                    if(file_uri.contains("fileprovider"))
-                        filePath = file_uri.substring(file_uri.indexOf("/storage"));
-                    else
-                        filePath = GetFilePathFromDevice.getPath(MainActivity.this, data.getData());
-                    Log.e("FILE PATH", "---" + filePath);
+                    if(file_uri.contains("fileprovider")) {
+                        if (selected_vv == 1) {
+                            filePath1 = file_uri.substring(file_uri.indexOf("/storage"));
+                        }
+                        else if(selected_vv==2){
+                            filePath2 = file_uri.substring(file_uri.indexOf("/storage"));
+                        }
+                        else if(selected_vv==3){
+                            filePath3 = file_uri.substring(file_uri.indexOf("/storage"));
+                        }
+                        else if(selected_vv==4){
+                            filePath4 = file_uri.substring(file_uri.indexOf("/storage"));
+                        }
+                    }
+                    else {
+                        if (selected_vv == 1) {
+                            filePath1 = GetFilePathFromDevice.getPath(MainActivity.this, data.getData());
+                        }
+                        else if(selected_vv==2){
+                            filePath2 = GetFilePathFromDevice.getPath(MainActivity.this, data.getData());
+                        }
+                        else if(selected_vv==3){
+                            filePath3 = GetFilePathFromDevice.getPath(MainActivity.this, data.getData());
+                        }
+                        else if(selected_vv==4){
+                            filePath4 = GetFilePathFromDevice.getPath(MainActivity.this, data.getData());
+                        }
+                    }
+                    //Log.e("FILE PATH", "---" + filePath);
                     if(selected_vv==1)
                         isToAddWatermark1 = true;
                     else if(selected_vv==2)
@@ -839,12 +870,33 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                         isToAddWatermark3 = true;
                     else if(selected_vv==4)
                         isToAddWatermark4 = true;
-
-                    selectVVToLoadVideoInVideoView(filePath);
+                    if (selected_vv == 1) {
+                        selectVVToLoadVideoInVideoView(filePath1);
+                    }
+                    else if(selected_vv==2){
+                        selectVVToLoadVideoInVideoView(filePath2);
+                    }
+                    else if(selected_vv==3){
+                        selectVVToLoadVideoInVideoView(filePath3);
+                    }
+                    else if(selected_vv==4){
+                        selectVVToLoadVideoInVideoView(filePath4);
+                    }
 
                     Uri uri = data.getData();
                     String uriString = uri.toString();
-                    myFile = new File(filePath);
+                    if (selected_vv == 1) {
+                        myFile = new File(filePath1);
+                    }
+                    else if(selected_vv==2){
+                        myFile = new File(filePath2);
+                    }
+                    else if(selected_vv==3){
+                        myFile = new File(filePath3);
+                    }
+                    else if(selected_vv==4){
+                        myFile = new File(filePath4);
+                    }
                     Log.e("File", "---" + myFile);
                     Log.e("File SIZE", "---" + Integer.parseInt(String.valueOf(myFile.length() / 1024)));
                     fileSize = Integer.parseInt(String.valueOf(myFile.length() / 1024));
@@ -869,7 +921,18 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                         //strImage = convertFileToByteArray(myFile);
 
                         //Log.e("Base64", "---" + strImage);
-                        detectFileExtension(filePath, displayName, fileSize);
+                        if (selected_vv == 1) {
+                            detectFileExtension(filePath1, displayName, fileSize);
+                        }
+                        else if(selected_vv==2){
+                            detectFileExtension(filePath2, displayName, fileSize);
+                        }
+                        else if(selected_vv==3){
+                            detectFileExtension(filePath3, displayName, fileSize);
+                        }
+                        else if(selected_vv==4){
+                            detectFileExtension(filePath4, displayName, fileSize);
+                        }
                     }
                 } catch (Exception e) {
                     e.printStackTrace();
@@ -1621,7 +1684,18 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             public void onSuccess(String message) {
                 progressDialog.dismiss();
                 Toast.makeText(MainActivity.this, "Video trimmed successfully!", Toast.LENGTH_SHORT).show();
-                selectVVToLoadVideoInVideoView(filePath);
+                if(selected_vv==1) {
+                    selectVVToLoadVideoInVideoView(filePath1);
+                }
+                else if(selected_vv==2) {
+                    selectVVToLoadVideoInVideoView(filePath2);
+                }
+                else if(selected_vv==3) {
+                    selectVVToLoadVideoInVideoView(filePath3);
+                }
+                else if(selected_vv==4) {
+                    selectVVToLoadVideoInVideoView(filePath4);
+                }
                 System.out.println("command:Success:"+message);
             }
 
@@ -1650,20 +1724,20 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         });
     }
     public void executeWaterMarkCommandVideo1(final String preFilePath) throws FFmpegCommandAlreadyRunningException {
-        progressBar = new ProgressDialog(this);
+      /*  progressBar = new ProgressDialog(this);
         progressBar.setCancelable(false);//you can cancel it by pressing back button
         progressBar.setMessage("Loading ...");
         progressBar.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
         progressBar.setProgress(0);//initially progress is 0
         progressBar.setMax(100);//sets the maximum value 100
-        progressBar.show();//displays the progress bar
+        progressBar.show();//displays the progress bar*/
         // Set Progress
 // or with animation
-        //circularProgressBar.setProgressWithAnimation(0.0f, (long) 1000); // =1s
+        circularProgressBar.setProgressWithAnimation(0.0f, (long) 1000); // =1s
 
 // Set Progress Max
-       // circularProgressBar.setVisibility(View.VISIBLE);
-        //circularProgressBar.setProgressMax(100f);
+        circularProgressBar.setVisibility(View.VISIBLE);
+        circularProgressBar.setProgressMax(100f);
 //        final ProgressDialog progressDialog = ProgressDialog.show(this, "", "Please wait...", true);
         createDirectory();
         String logo = Environment.getExternalStorageDirectory().getAbsolutePath() +"/num"+(selected_vv)+".png";
@@ -1676,7 +1750,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 //        String[] cutVideo = {"-ss", "" + startTime / 1000, "-y", "-i", videoPath, "-t", "" + (videoMillis - startTime-(videoMillis-endTime)) / 1000, "-s", "320x240", "-r", "15", "-vcodec", "mpeg4", "-b:v", "2097152", "-b:a", "48000", "-ac", "2", "-ar", "22050", mFileName};
 //        String[] addWatermark ={"-i", preFilePath, "-i", logo, "-filter_complex", "overlay=10:main_h-overlay_h-10", mFileName};
           //"overlay=(main_w-overlay_w)/2:main_h-overlay_h"
-        String[] addWatermark ={"-i", preFilePath, "-i", logo, "-filter_complex", "overlay=(main_w-overlay_w)/2:main_h-overlay_h","-vcodec", "h264", "-b:v", "2097152","-b:a", "48000","-c:v", "libx264",  "-preset", "ultrafast","-c:a", "copy","-me_method","zero","-tune","fastdecode","-tune","zerolatency","-strict","2","-pix_fmt","yuv420p", "-crf", "28", "-acodec", "aac", "-ar", "22050", "-ac", "2","-r","20", mFileName};
+        String[] addWatermark ={"-i", preFilePath, "-i", logo, "-filter_complex", "[1][0]scale2ref=iw/8:ih/8[wm][vid];[vid][wm] overlay=(main_w-overlay_w)/2:main_h-overlay_h","-vcodec", "h264", "-b:v", "2097152","-b:a", "48000","-c:v", "libx264",  "-preset", "ultrafast","-c:a", "copy","-me_method","zero","-tune","fastdecode","-tune","zerolatency","-strict","2","-pix_fmt","yuv420p", "-crf", "28", "-acodec", "aac", "-ar", "22050", "-ac", "2","-r","20", mFileName};
 //        "ffmpeg -i input.mp4 -i logo.png -filter_complex \\\n" +
 //                "\"overlay=(main_w-overlay_w)/2:(main_h-overlay_h)/2\" \\\n" +
 //                "-codec:a copy output.mp4"
@@ -1693,7 +1767,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             @Override
             public void onSuccess(String message) {
                 status = SUCCESS;
-                progressBar.dismiss();
+                //progressBar.dismiss();
 //                Toast.makeText(MainActivity.this, "Water mark added!", Toast.LENGTH_SHORT).show();
                 selectVVToLoadVideoInVideoView(finalMFileName);
                 System.out.println("command:Success:"+message);
@@ -1706,21 +1780,21 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 int progress = mProgressCalculator.calcProgress(message);
                 if (progress != 0 && progress <= 100) {
                     if (progress >= 99) {
-                        progressBar.setMessage("Almost done!");
+                        //progressBar.setMessage("Almost done!");
                         progress = 100;
                     }
-                    progressBar.setProgress(progress);
-                    //circularProgressBar.setProgress(progress);
+                    //progressBar.setProgress(progress);
+                    circularProgressBar.setProgress(progress);
                     System.out.println("pro_progress"+progress+"%%");
 //                    listener.onProgress(progress);
                 }
                 if(progress==50){
-                    progressBar.setMessage("Compressing Video, Please wait!!");
+                    //progressBar.setMessage("Compressing Video, Please wait!!");
                 }
                 if(progress==100){
                     Log.e("i am ","here");
-                    progressBar.setProgress(100);
-                    //circularProgressBar.setProgress(100f);
+                    //progressBar.setProgress(100);
+                    circularProgressBar.setProgress(100f);
                 }
                 System.out.println("command:onProgress:"+message);
             }
@@ -1739,10 +1813,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
             @Override
             public void onFinish() {
-                //circularProgressBar.setProgress(0.0f);
-                //circularProgressBar.refreshDrawableState();
-                //circularProgressBar.setVisibility(View.GONE);
-                progressBar.dismiss();
+                circularProgressBar.setProgress(0.0f);
+                circularProgressBar.refreshDrawableState();
+                circularProgressBar.setVisibility(View.GONE);
+                //progressBar.dismiss();
                 iv_mute_button1.setVisibility(View.VISIBLE);
 //                selectVVToLoadVideoInVideoView();
                 System.out.println("command:onFinish:");
@@ -1776,7 +1850,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 //        String[] cutVideo = {"-ss", "" + startTime / 1000, "-y", "-i", videoPath, "-t", "" + (videoMillis - startTime-(videoMillis-endTime)) / 1000, "-s", "320x240", "-r", "15", "-vcodec", "mpeg4", "-b:v", "2097152", "-b:a", "48000", "-ac", "2", "-ar", "22050", mFileName};
 //        String[] addWatermark ={"-i", preFilePath, "-i", logo, "-filter_complex", "overlay=10:main_h-overlay_h-10", mFileName};
         //"overlay=(main_w-overlay_w)/2:main_h-overlay_h"
-        String[] addWatermark ={"-i", preFilePath, "-i", logo, "-filter_complex", "overlay=(main_w-overlay_w)/2:main_h-overlay_h","-vcodec", "h264", "-b:v", "2097152","-b:a", "48000","-c:v", "libx264",  "-preset", "ultrafast","-c:a", "copy","-me_method","zero","-tune","fastdecode","-tune","zerolatency","-strict","2","-pix_fmt","yuv420p", "-crf", "28", "-acodec", "aac", "-ar", "22050", "-ac", "2","-r","20", mFileName};
+        String[] addWatermark ={"-i", preFilePath, "-i", logo, "-filter_complex", "[1][0]scale2ref=iw/8:ih/8[wm][vid];[vid][wm] overlay=(main_w-overlay_w)/2:main_h-overlay_h","-vcodec", "h264", "-b:v", "2097152","-b:a", "48000","-c:v", "libx264",  "-preset", "ultrafast","-c:a", "copy","-me_method","zero","-tune","fastdecode","-tune","zerolatency","-strict","2","-pix_fmt","yuv420p", "-crf", "28", "-acodec", "aac", "-ar", "22050", "-ac", "2","-r","20", mFileName};
 //        "ffmpeg -i input.mp4 -i logo.png -filter_complex \\\n" +
 //                "\"overlay=(main_w-overlay_w)/2:(main_h-overlay_h)/2\" \\\n" +
 //                "-codec:a copy output.mp4"
@@ -1875,7 +1949,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 //        String[] cutVideo = {"-ss", "" + startTime / 1000, "-y", "-i", videoPath, "-t", "" + (videoMillis - startTime-(videoMillis-endTime)) / 1000, "-s", "320x240", "-r", "15", "-vcodec", "mpeg4", "-b:v", "2097152", "-b:a", "48000", "-ac", "2", "-ar", "22050", mFileName};
 //        String[] addWatermark ={"-i", preFilePath, "-i", logo, "-filter_complex", "overlay=10:main_h-overlay_h-10", mFileName};
         //"overlay=(main_w-overlay_w)/2:main_h-overlay_h"
-        String[] addWatermark ={"-i", preFilePath, "-i", logo, "-filter_complex", "overlay=(main_w-overlay_w)/2:main_h-overlay_h","-vcodec", "h264", "-b:v", "2097152","-b:a", "48000","-c:v", "libx264",  "-preset", "ultrafast","-c:a", "copy","-me_method","zero","-tune","fastdecode","-tune","zerolatency","-strict","2","-pix_fmt","yuv420p", "-crf", "28", "-acodec", "aac", "-ar", "22050", "-ac", "2","-r","20", mFileName};
+        String[] addWatermark ={"-i", preFilePath, "-i", logo, "-filter_complex", "[1][0]scale2ref=iw/8:ih/8[wm][vid];[vid][wm] overlay=(main_w-overlay_w)/2:main_h-overlay_h","-vcodec", "h264", "-b:v", "2097152","-b:a", "48000","-c:v", "libx264",  "-preset", "ultrafast","-c:a", "copy","-me_method","zero","-tune","fastdecode","-tune","zerolatency","-strict","2","-pix_fmt","yuv420p", "-crf", "28", "-acodec", "aac", "-ar", "22050", "-ac", "2","-r","20", mFileName};
 //        "ffmpeg -i input.mp4 -i logo.png -filter_complex \\\n" +
 //                "\"overlay=(main_w-overlay_w)/2:(main_h-overlay_h)/2\" \\\n" +
 //                "-codec:a copy output.mp4"
@@ -1975,7 +2049,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 //        String[] addWatermark ={"-i", preFilePath, "-i", logo, "-filter_complex", "overlay=10:main_h-overlay_h-10", mFileName};
         //"overlay=(main_w-overlay_w)/2:main_h-overlay_h"
         //[0:v][1:v] uncomment if required
-        String[] addWatermark ={"-i", preFilePath, "-i", logo, "-filter_complex", "overlay=(main_w-overlay_w)/2:main_h-overlay_h","-vcodec", "h264", "-b:v", "2097152","-b:a", "48000","-c:v", "libx264",  "-preset", "ultrafast","-c:a", "copy","-me_method","zero","-tune","fastdecode","-tune","zerolatency","-strict","2","-pix_fmt","yuv420p", "-crf", "28", "-acodec", "aac", "-ar", "22050", "-ac", "2","-r","20", mFileName};
+        String[] addWatermark ={"-i", preFilePath, "-i", logo, "-filter_complex", "[1][0]scale2ref=iw/8:ih/8[wm][vid];[vid][wm] overlay=(main_w-overlay_w)/2:main_h-overlay_h","-vcodec", "h264", "-b:v", "2097152","-b:a", "48000","-c:v", "libx264",  "-preset", "ultrafast","-c:a", "copy","-me_method","zero","-tune","fastdecode","-tune","zerolatency","-strict","2","-pix_fmt","yuv420p", "-crf", "28", "-acodec", "aac", "-ar", "22050", "-ac", "2","-r","20", mFileName};
 //        "ffmpeg -i input.mp4 -i logo.png -filter_complex \\\n" +
 //                "\"overlay=(main_w-overlay_w)/2:(main_h-overlay_h)/2\" \\\n" +
 //                "-codec:a copy output.mp4"
