@@ -45,21 +45,24 @@
             android:layout_height="wrap_content"
             android:gravity="center"
             android:background="@drawable/selection_bg"
-            android:paddingTop="15dp"
-            android:paddingBottom="15dp"
-            android:paddingStart="18dp"
-            android:paddingEnd="18dp"
+            android:padding="15dp"
+            android:orientation="vertical"
             android:layout_marginEnd="20dp">
-            <TextView
-                android:id="@+id/tv_1"
+            <ImageView
+                android:id="@+id/insta_bg"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="4:3"
-                android:textSize="35sp"
-                android:paddingStart="15dp"
-                android:paddingEnd="15dp"
-                android:paddingTop="10dp"
-                android:paddingBottom="10dp"
+                android:src="@drawable/ic_instagram"
+                android:padding="10dp"
+                android:scaleType="fitXY"/>
+            <TextView
+                android:id="@+id/tv_1"
+                android:layout_width="65dp"
+                android:layout_height="wrap_content"
+                android:text="@string/_4_3"
+                android:textSize="24sp"
+                android:padding="10dp"
+                android:gravity="center"
                 android:background="@drawable/resolution_bg"
                 android:fontFamily="sans-serif-black"
                 android:textStyle="italic"/>
@@ -70,21 +73,25 @@
             android:layout_height="wrap_content"
             android:background="@drawable/selection_bg"
             android:gravity="center"
-            android:paddingTop="15dp"
-            android:paddingBottom="15dp"
-            android:paddingStart="10dp"
-            android:paddingEnd="10dp">
+            android:orientation="vertical"
+            android:padding="15dp"
+            >
+            <ImageView
+                android:id="@+id/tiktok_bg"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_tik_tok"
+                android:padding="10dp"
+                android:scaleType="fitXY"/>
             <TextView
                 android:id="@+id/tv_2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="16:9"
-                android:paddingStart="5dp"
-                android:paddingEnd="5dp"
-                android:paddingTop="10dp"
-                android:paddingBottom="10dp"
+                android:text="@string/_16_9"
                 android:background="@drawable/resolution_bg"
-                android:textSize="35sp"
+                android:textSize="24sp"
+                android:gravity="center"
+                android:padding="10dp"
                 android:fontFamily="sans-serif-black"
                 android:textStyle="italic"/>
         </LinearLayout>

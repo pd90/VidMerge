@@ -10,6 +10,8 @@
     <string name="kilobyte">KB</string>
     <string name="cancel">Cancel</string>
     <string name="save">Save</string>
+    <string name="_4_3">4:3</string>
+    <string name="_16_9">16:9</string>
 
     <dimen name="fab_elevation">5dp</dimen>
     <dimen name="fab_rise">3dp</dimen>

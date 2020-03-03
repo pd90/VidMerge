@@ -19,8 +19,8 @@ import static java.sql.Types.NULL;
 public class Menu extends AppCompatActivity {
 
 //    VideoView vv1, vv2, vv3;
-    LinearLayout ll1, ll2,ll3;
-    ImageView iv_1, iv_2, iv_3;
+    LinearLayout ll1, ll2,ll3,ll4,ll5;
+    ImageView iv_1, iv_2, iv_3,iv_4,iv_5;
     TextView tv_continue;
     ImageView iv_bg;
     int selected_template=1;
@@ -36,9 +36,13 @@ public class Menu extends AppCompatActivity {
         ll1 = findViewById(R.id.ll1);
         ll2 = findViewById(R.id.ll2);
         ll3 = findViewById(R.id.ll3);
+        ll4 = findViewById(R.id.ll4);
+        ll5 = findViewById(R.id.ll5);
         iv_1 = findViewById(R.id.iv_1);
         iv_2 = findViewById(R.id.iv_2);
         iv_3= findViewById(R.id.iv_3);
+        iv_4= findViewById(R.id.iv_4);
+        iv_5= findViewById(R.id.iv_5);
         tv_continue= findViewById(R.id.tv_continue);
 
         setSelectedTemplate();
@@ -86,6 +90,24 @@ public class Menu extends AppCompatActivity {
 //                finish();
             }
         });
+        iv_4.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                selected_template=4;
+                setSelectedTemplate();
+//                startActivity(new Intent(Menu.this, MainActivity.class).putExtra("TYPE",3));
+//                finish();
+            }
+        });
+        iv_5.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                selected_template=5;
+                setSelectedTemplate();
+//                startActivity(new Intent(Menu.this, MainActivity.class).putExtra("TYPE",3));
+//                finish();
+            }
+        });
         tv_continue.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -101,14 +123,34 @@ public class Menu extends AppCompatActivity {
             ll1.setBackgroundResource(R.drawable.selection_bg);
             ll2.setBackgroundResource(NULL);
             ll3.setBackgroundResource(NULL);
+            ll4.setBackgroundResource(NULL);
+            ll5.setBackgroundResource(NULL);
         }else if(selected_template==2) {
             ll1.setBackgroundResource(NULL);
             ll2.setBackgroundResource(R.drawable.selection_bg);
             ll3.setBackgroundResource(NULL);
+            ll4.setBackgroundResource(NULL);
+            ll5.setBackgroundResource(NULL);
         }else if(selected_template==3) {
             ll1.setBackgroundResource(NULL);
             ll2.setBackgroundResource(NULL);
             ll3.setBackgroundResource(R.drawable.selection_bg);
+            ll4.setBackgroundResource(NULL);
+            ll5.setBackgroundResource(NULL);
+        }
+        else if(selected_template==4) {
+            ll1.setBackgroundResource(NULL);
+            ll2.setBackgroundResource(NULL);
+            ll3.setBackgroundResource(NULL);
+            ll4.setBackgroundResource(R.drawable.selection_bg);
+            ll5.setBackgroundResource(NULL);
+        }
+        else if(selected_template==5) {
+            ll1.setBackgroundResource(NULL);
+            ll2.setBackgroundResource(NULL);
+            ll3.setBackgroundResource(NULL);
+            ll4.setBackgroundResource(NULL);
+            ll5.setBackgroundResource(R.drawable.selection_bg);
         }
     }
 }

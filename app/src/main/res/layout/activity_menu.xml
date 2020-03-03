@@ -1,11 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:fillViewport="true"
+    >
+<RelativeLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
     android:orientation="vertical"
     android:gravity="center"
+    android:isScrollContainer="true"
     tools:context=".Splash">
 
     <ImageView
@@ -25,20 +33,27 @@
         android:text="Choose a Template"
         android:textColor="@android:color/white"
         android:textSize="26sp"
-        android:layout_above="@+id/ll"/>
+        android:layout_above="@+id/horizontalScroll"/>
+    <HorizontalScrollView
+        android:id="@+id/horizontalScroll"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
 
+        android:animateLayoutChanges="true"
+        android:scrollbars="none">
     <LinearLayout
         android:id="@+id/ll"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:gravity="center"
-        android:layout_centerInParent="true"
         android:background="@drawable/layout_bg"
         android:paddingTop="20dp"
         android:paddingBottom="20dp"
         android:paddingStart="10dp"
         android:paddingEnd="10dp">
+
         <LinearLayout
             android:id="@+id/ll1"
             android:layout_width="wrap_content"
@@ -84,8 +99,41 @@
                 android:layout_height="150dp"
                 android:src="@drawable/op3"/>
         </LinearLayout>
-    </LinearLayout>
 
+        <!-- Green-->
+        <LinearLayout
+            android:id="@+id/ll4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/selection_bg"
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp"
+            android:paddingStart="5dp"
+            android:paddingEnd="5dp">
+            <ImageView
+                android:id="@+id/iv_4"
+                android:layout_width="100dp"
+                android:layout_height="150dp"
+                android:src="@drawable/op3"/>
+        </LinearLayout>
+        <!-- RED-->
+        <LinearLayout
+            android:id="@+id/ll5"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/selection_bg"
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp"
+            android:paddingStart="5dp"
+            android:paddingEnd="5dp">
+            <ImageView
+                android:id="@+id/iv_5"
+                android:layout_width="100dp"
+                android:layout_height="150dp"
+                android:src="@drawable/op3"/>
+        </LinearLayout>
+    </LinearLayout>
+    </HorizontalScrollView>
     <ImageView
         android:layout_width="wrap_content"
         android:layout_height="150dp"
@@ -111,4 +159,8 @@
         android:textColor="@android:color/white"
         android:textSize="20sp" />
 
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="50dp" />
+</RelativeLayout>
 </RelativeLayout>

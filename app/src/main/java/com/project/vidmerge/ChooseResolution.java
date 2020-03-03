@@ -39,14 +39,14 @@ public class ChooseResolution extends AppCompatActivity {
 
         iv_bg.setImageResource(bg_images[new Random().nextInt(3)]);
 
-        tv_1.setOnClickListener(new View.OnClickListener() {
+        ll1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 selected_resolution=1;
                 setSelectedTemplate();
             }
         });
-        tv_2.setOnClickListener(new View.OnClickListener() {
+        ll2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 selected_resolution=2;

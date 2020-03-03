@@ -251,7 +251,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 //
 //        player = MediaPlayer.create(this, R.raw.logo);
 
-        replaceFragment(new LogoFragment());
+        //replaceFragment(new LogoFragment());
 
 //        setLayoutsSize();
 //        try {
@@ -1497,14 +1497,15 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         progressBar.show();//displays the progress bar
 //        final ProgressDialog progressDialog = ProgressDialog.show(this, "", "Please wait...", true);
         createDirectory();
-        String logo = Environment.getExternalStorageDirectory().getAbsolutePath().toString()+"/num"+(selected_vv)+".png";
+        String logo = Environment.getExternalStorageDirectory().getAbsolutePath() +"/num"+(selected_vv)+".png";
         String timeMillis = String.valueOf(new Date().getTime());
         String mFileName = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES).getAbsolutePath();
         mFileName += "/MergedVideos/"+timeMillis+".mp4";
         System.out.println("::logo::"+logo);
 //        String[] cutVideo = {"-ss", "" + startTime / 1000, "-y", "-i", videoPath, "-t", "" + (videoMillis - startTime-(videoMillis-endTime)) / 1000, "-s", "320x240", "-r", "15", "-vcodec", "mpeg4", "-b:v", "2097152", "-b:a", "48000", "-ac", "2", "-ar", "22050", mFileName};
 //        String[] addWatermark ={"-i", preFilePath, "-i", logo, "-filter_complex", "overlay=10:main_h-overlay_h-10", mFileName};
-        String[] addWatermark ={"-i", preFilePath, "-i", logo, "-filter_complex", "overlay=(main_w-overlay_w)/2:main_h-overlay_h","-vcodec", "h264", "-b:v", "2097152","-b:a", "48000","-c:v", "libx264",  "-preset", "ultrafast","-c:a", "copy","-me_method","zero","-tune","fastdecode","-tune","zerolatency","-strict","2","-pix_fmt","yuv420p", "-crf", "28", "-acodec", "aac", "-ar", "22050", "-ac", "2","-r","20", mFileName};
+          //"overlay=(main_w-overlay_w)/2:main_h-overlay_h"
+        String[] addWatermark ={"-i", preFilePath, "-i", logo, "-filter_complex", "[0:v][1:v] overlay=(main_w-overlay_w)/2:main_h-overlay_h","-vcodec", "h264", "-b:v", "2097152","-b:a", "48000","-c:v", "libx264",  "-preset", "ultrafast","-c:a", "copy","-me_method","zero","-tune","fastdecode","-tune","zerolatency","-strict","2","-pix_fmt","yuv420p", "-crf", "28", "-acodec", "aac", "-ar", "22050", "-ac", "2","-r","20", mFileName};
 //        "ffmpeg -i input.mp4 -i logo.png -filter_complex \\\n" +
 //                "\"overlay=(main_w-overlay_w)/2:(main_h-overlay_h)/2\" \\\n" +
 //                "-codec:a copy output.mp4"
@@ -1859,7 +1860,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         mFileName += "/MergedVideos/"+timeMillis+".mp4";
 
 //        String p1 = "/storage/emulated/0/DCIM/Camera/1580193215064.mp4";
-        String p2 = "/storage/emulated/0/Pictures/MergedVideos/blue_bg.mp4";
+          String p2 = "/storage/emulated/0/Pictures/MergedVideos/blue_bg.mp4";
 //          String[] addBg = new String[]{"-i", p2, "-i", p1, "-i", p1, "-i", p1, "-i", p1, "-filter_complex", "$1", mFileName};:overlay_w-main_w-10:overlay_h-main_h-10
 //          String[] addBg = new String[]{"-i", p2, "-i", p1, "-filter_complex", "overlay=main_w-overlay_w-40:main_h-overlay_h-40;overlay=x=40:y=40", mFileName};
           String[] addBg = new String[]{"-i", collage_bg_path, "-i", collage_resized_path, "-filter_complex", "overlay=x=40:main_w-overlay_w-40:y=40:main_h-overlay_h-40:x=main_w-overlay_w-40:y=main_h-overlay_h-115", mFileName};

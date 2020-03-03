@@ -12,12 +12,14 @@
         android:id="@+id/vv_bg"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="60dp" />
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="80dp" />
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginBottom="60dp">
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="80dp">
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -43,11 +45,21 @@
                     android:background="@drawable/main_lay_background"
                     android:layout_height="330dp">
 
+                    <FrameLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
                     <VideoView
                         android:id="@+id/vv1"
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent" />
-
+                        <Button
+                            android:id="@+id/iv_mute_button1"
+                            android:layout_width="45dp"
+                            android:layout_height="45dp"
+                            android:layout_gravity="bottom"
+                            android:layout_margin="15dp"
+                            android:background="@drawable/ic_volume_up_black_24dp"/>
+                    </FrameLayout>
                 </LinearLayout>
                 <LinearLayout
                     android:id="@+id/ll2"
@@ -134,7 +146,7 @@
     <LinearLayout
         android:id="@+id/ll_menu"
         android:layout_width="match_parent"
-        android:layout_height="60dp"
+        android:layout_height="80dp"
         android:orientation="horizontal"
         android:gravity="center"
         android:layout_alignParentBottom="true">
@@ -196,6 +208,7 @@
                 android:layout_width="50dp"
                 android:layout_height="50dp"
                 android:layout_margin="3dp"
+                android:visibility="gone"
                 android:src="@drawable/ic_volume_on"/>
             <ImageView
                 android:id="@+id/iv_trim"
