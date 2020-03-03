@@ -1676,7 +1676,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 //        String[] cutVideo = {"-ss", "" + startTime / 1000, "-y", "-i", videoPath, "-t", "" + (videoMillis - startTime-(videoMillis-endTime)) / 1000, "-s", "320x240", "-r", "15", "-vcodec", "mpeg4", "-b:v", "2097152", "-b:a", "48000", "-ac", "2", "-ar", "22050", mFileName};
 //        String[] addWatermark ={"-i", preFilePath, "-i", logo, "-filter_complex", "overlay=10:main_h-overlay_h-10", mFileName};
           //"overlay=(main_w-overlay_w)/2:main_h-overlay_h"
-        String[] addWatermark ={"-i", preFilePath, "-i", logo, "-filter_complex", "[1:v]scale=320:240 [ovrl],[0:v][ovrl] overlay=(main_w-overlay_w)/2:main_h-overlay_h","-vcodec", "h264", "-b:v", "2097152","-b:a", "48000","-c:v", "libx264",  "-preset", "ultrafast","-c:a", "copy","-me_method","zero","-tune","fastdecode","-tune","zerolatency","-strict","2","-pix_fmt","yuv420p", "-crf", "28", "-acodec", "aac", "-ar", "22050", "-ac", "2","-r","20", mFileName};
+        String[] addWatermark ={"-i", preFilePath, "-i", logo, "-filter_complex", "overlay=(main_w-overlay_w)/2:main_h-overlay_h","-vcodec", "h264", "-b:v", "2097152","-b:a", "48000","-c:v", "libx264",  "-preset", "ultrafast","-c:a", "copy","-me_method","zero","-tune","fastdecode","-tune","zerolatency","-strict","2","-pix_fmt","yuv420p", "-crf", "28", "-acodec", "aac", "-ar", "22050", "-ac", "2","-r","20", mFileName};
 //        "ffmpeg -i input.mp4 -i logo.png -filter_complex \\\n" +
 //                "\"overlay=(main_w-overlay_w)/2:(main_h-overlay_h)/2\" \\\n" +
 //                "-codec:a copy output.mp4"
@@ -1776,7 +1776,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 //        String[] cutVideo = {"-ss", "" + startTime / 1000, "-y", "-i", videoPath, "-t", "" + (videoMillis - startTime-(videoMillis-endTime)) / 1000, "-s", "320x240", "-r", "15", "-vcodec", "mpeg4", "-b:v", "2097152", "-b:a", "48000", "-ac", "2", "-ar", "22050", mFileName};
 //        String[] addWatermark ={"-i", preFilePath, "-i", logo, "-filter_complex", "overlay=10:main_h-overlay_h-10", mFileName};
         //"overlay=(main_w-overlay_w)/2:main_h-overlay_h"
-        String[] addWatermark ={"-i", preFilePath, "-i", logo, "-filter_complex", "[1:v]scale=320:240 [ovrl],[0:v][ovrl] overlay=(main_w-overlay_w)/2:main_h-overlay_h","-vcodec", "h264", "-b:v", "2097152","-b:a", "48000","-c:v", "libx264",  "-preset", "ultrafast","-c:a", "copy","-me_method","zero","-tune","fastdecode","-tune","zerolatency","-strict","2","-pix_fmt","yuv420p", "-crf", "28", "-acodec", "aac", "-ar", "22050", "-ac", "2","-r","20", mFileName};
+        String[] addWatermark ={"-i", preFilePath, "-i", logo, "-filter_complex", "overlay=(main_w-overlay_w)/2:main_h-overlay_h","-vcodec", "h264", "-b:v", "2097152","-b:a", "48000","-c:v", "libx264",  "-preset", "ultrafast","-c:a", "copy","-me_method","zero","-tune","fastdecode","-tune","zerolatency","-strict","2","-pix_fmt","yuv420p", "-crf", "28", "-acodec", "aac", "-ar", "22050", "-ac", "2","-r","20", mFileName};
 //        "ffmpeg -i input.mp4 -i logo.png -filter_complex \\\n" +
 //                "\"overlay=(main_w-overlay_w)/2:(main_h-overlay_h)/2\" \\\n" +
 //                "-codec:a copy output.mp4"
@@ -1875,7 +1875,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 //        String[] cutVideo = {"-ss", "" + startTime / 1000, "-y", "-i", videoPath, "-t", "" + (videoMillis - startTime-(videoMillis-endTime)) / 1000, "-s", "320x240", "-r", "15", "-vcodec", "mpeg4", "-b:v", "2097152", "-b:a", "48000", "-ac", "2", "-ar", "22050", mFileName};
 //        String[] addWatermark ={"-i", preFilePath, "-i", logo, "-filter_complex", "overlay=10:main_h-overlay_h-10", mFileName};
         //"overlay=(main_w-overlay_w)/2:main_h-overlay_h"
-        String[] addWatermark ={"-i", preFilePath, "-i", logo, "-filter_complex", "[1:v]scale=320:240 [ovrl],[0:v][ovrl] overlay=(main_w-overlay_w)/2:main_h-overlay_h","-vcodec", "h264", "-b:v", "2097152","-b:a", "48000","-c:v", "libx264",  "-preset", "ultrafast","-c:a", "copy","-me_method","zero","-tune","fastdecode","-tune","zerolatency","-strict","2","-pix_fmt","yuv420p", "-crf", "28", "-acodec", "aac", "-ar", "22050", "-ac", "2","-r","20", mFileName};
+        String[] addWatermark ={"-i", preFilePath, "-i", logo, "-filter_complex", "overlay=(main_w-overlay_w)/2:main_h-overlay_h","-vcodec", "h264", "-b:v", "2097152","-b:a", "48000","-c:v", "libx264",  "-preset", "ultrafast","-c:a", "copy","-me_method","zero","-tune","fastdecode","-tune","zerolatency","-strict","2","-pix_fmt","yuv420p", "-crf", "28", "-acodec", "aac", "-ar", "22050", "-ac", "2","-r","20", mFileName};
 //        "ffmpeg -i input.mp4 -i logo.png -filter_complex \\\n" +
 //                "\"overlay=(main_w-overlay_w)/2:(main_h-overlay_h)/2\" \\\n" +
 //                "-codec:a copy output.mp4"
@@ -1974,7 +1974,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 //        String[] cutVideo = {"-ss", "" + startTime / 1000, "-y", "-i", videoPath, "-t", "" + (videoMillis - startTime-(videoMillis-endTime)) / 1000, "-s", "320x240", "-r", "15", "-vcodec", "mpeg4", "-b:v", "2097152", "-b:a", "48000", "-ac", "2", "-ar", "22050", mFileName};
 //        String[] addWatermark ={"-i", preFilePath, "-i", logo, "-filter_complex", "overlay=10:main_h-overlay_h-10", mFileName};
         //"overlay=(main_w-overlay_w)/2:main_h-overlay_h"
-        String[] addWatermark ={"-i", preFilePath, "-i", logo, "-filter_complex", "[1:v]scale=320:240 [ovrl],[0:v][ovrl] overlay=(main_w-overlay_w)/2:main_h-overlay_h","-vcodec", "h264", "-b:v", "2097152","-b:a", "48000","-c:v", "libx264",  "-preset", "ultrafast","-c:a", "copy","-me_method","zero","-tune","fastdecode","-tune","zerolatency","-strict","2","-pix_fmt","yuv420p", "-crf", "28", "-acodec", "aac", "-ar", "22050", "-ac", "2","-r","20", mFileName};
+        //[0:v][1:v] uncomment if required
+        String[] addWatermark ={"-i", preFilePath, "-i", logo, "-filter_complex", "overlay=(main_w-overlay_w)/2:main_h-overlay_h","-vcodec", "h264", "-b:v", "2097152","-b:a", "48000","-c:v", "libx264",  "-preset", "ultrafast","-c:a", "copy","-me_method","zero","-tune","fastdecode","-tune","zerolatency","-strict","2","-pix_fmt","yuv420p", "-crf", "28", "-acodec", "aac", "-ar", "22050", "-ac", "2","-r","20", mFileName};
 //        "ffmpeg -i input.mp4 -i logo.png -filter_complex \\\n" +
 //                "\"overlay=(main_w-overlay_w)/2:(main_h-overlay_h)/2\" \\\n" +
 //                "-codec:a copy output.mp4"
