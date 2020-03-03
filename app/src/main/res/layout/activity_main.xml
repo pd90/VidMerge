@@ -48,17 +48,27 @@
                     <FrameLayout
                         android:layout_width="match_parent"
                         android:layout_height="match_parent">
+
                     <VideoView
                         android:id="@+id/vv1"
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent" />
                         <Button
-                            android:id="@+id/iv_mute_button1"
+                            android:id="@+id/iv_mute_button_1"
                             android:layout_width="45dp"
                             android:layout_height="45dp"
                             android:layout_gravity="bottom"
-                            android:layout_margin="15dp"
+                            android:layout_margin="8dp"
+                            android:visibility="gone"
                             android:background="@drawable/ic_volume_up_black_24dp"/>
+                        <Button
+                            android:id="@+id/iv_un_mute_button_1"
+                            android:layout_width="45dp"
+                            android:layout_height="45dp"
+                            android:layout_gravity="bottom"
+                            android:layout_margin="8dp"
+                            android:visibility="gone"
+                            android:background="@drawable/ic_volume_off_black_24dp"/>
                     </FrameLayout>
                 </LinearLayout>
                 <LinearLayout
@@ -70,11 +80,30 @@
                     android:padding="5dp"
                     android:background="@drawable/main_lay_background"
                     android:layout_height="330dp">
-
+                    <FrameLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
                     <VideoView
                         android:id="@+id/vv2"
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent" />
+                        <Button
+                            android:id="@+id/iv_mute_button_2"
+                            android:layout_width="45dp"
+                            android:layout_height="45dp"
+                            android:layout_gravity="bottom"
+                            android:layout_margin="8dp"
+                            android:visibility="gone"
+                            android:background="@drawable/ic_volume_up_black_24dp"/>
+                        <Button
+                            android:id="@+id/iv_un_mute_button_2"
+                            android:layout_width="45dp"
+                            android:layout_height="45dp"
+                            android:layout_gravity="bottom"
+                            android:layout_margin="8dp"
+                            android:visibility="gone"
+                            android:background="@drawable/ic_volume_off_black_24dp"/>
+                    </FrameLayout>
 
                 </LinearLayout>
 
@@ -96,11 +125,30 @@
                     android:padding="5dp"
                     android:background="@drawable/main_lay_background"
                     android:layout_height="330dp">
-
+                    <FrameLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
                     <VideoView
                         android:id="@+id/vv3"
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent" />
+                        <Button
+                            android:id="@+id/iv_mute_button_3"
+                            android:layout_width="45dp"
+                            android:layout_height="45dp"
+                            android:layout_gravity="bottom"
+                            android:layout_margin="8dp"
+                            android:visibility="gone"
+                            android:background="@drawable/ic_volume_up_black_24dp"/>
+                        <Button
+                            android:id="@+id/iv_un_mute_button_3"
+                            android:layout_width="45dp"
+                            android:layout_height="45dp"
+                            android:layout_gravity="bottom"
+                            android:layout_margin="8dp"
+                            android:visibility="gone"
+                            android:background="@drawable/ic_volume_off_black_24dp"/>
+                    </FrameLayout>
 
                 </LinearLayout>
                 <LinearLayout
@@ -114,11 +162,30 @@
                     android:padding="5dp"
                     android:background="@drawable/main_lay_background"
                     android:layout_height="330dp">
-
+                    <FrameLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
                     <VideoView
                         android:id="@+id/vv4"
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent" />
+                        <Button
+                            android:id="@+id/iv_mute_button_4"
+                            android:layout_width="45dp"
+                            android:layout_height="45dp"
+                            android:layout_gravity="bottom"
+                            android:layout_margin="8dp"
+                            android:visibility="gone"
+                            android:background="@drawable/ic_volume_up_black_24dp"/>
+                        <Button
+                            android:id="@+id/iv_un_mute_button_4"
+                            android:layout_width="45dp"
+                            android:layout_height="45dp"
+                            android:layout_gravity="bottom"
+                            android:layout_margin="8dp"
+                            android:visibility="gone"
+                            android:background="@drawable/ic_volume_off_black_24dp"/>
+                    </FrameLayout>
 
                 </LinearLayout>
 

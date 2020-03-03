@@ -58,6 +58,7 @@ import com.googlecode.mp4parser.authoring.Track;
 import com.googlecode.mp4parser.authoring.builder.DefaultMp4Builder;
 import com.googlecode.mp4parser.authoring.container.mp4.MovieCreator;
 import com.googlecode.mp4parser.authoring.tracks.AppendTrack;
+import com.mikhaellopez.circularprogressbar.CircularProgressBar;
 import com.project.vidmerge.Utils.CircleSurface;
 import com.project.vidmerge.Utils.GetFilePathFromDevice;
 import com.project.vidmerge.Utils.HelperClass;
@@ -90,7 +91,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     LinearLayout ll1, ll2, ll3, ll4, ll_menu, ll_options;
     int selected_vv=0;
     boolean[] videosMuteStatus = new boolean[]{false, false, false, false};
-    boolean isToAddWatermark=false;
+    boolean isToAddWatermark1=false,isToAddWatermark2=false,isToAddWatermark3=false,isToAddWatermark4=false;
     boolean isToSetResolution=false;
     boolean isSwapOn=false;
     int viewWhichTurnsOnSwap=0;
@@ -98,12 +99,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     TextView tv_merge, tv_cancel;
 //    ProgressDialog progressDialogResWatMark;
     ProgressDialog progressBar;
-
+    CircularProgressBar circularProgressBar;
     private int ATTACH_FILE_REQUEST_CODE = 20;
     private int PICK_FILE_REQUEST_CODE = 11;
 
     //upload file
-    String filePath = "";
+    static String filePath = "";
     int fileSize;
     File myFile;
     String displayName = "";
@@ -115,6 +116,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     BackMediaController mControl1, mControl2, mControl3, mControl4;
     int type, resolution_type;
 
+    public Button iv_mute_button1,iv_un_mute_button1,iv_mute_button2,iv_un_mute_button2,
+            iv_mute_button3,iv_un_mute_button3,iv_mute_button4,iv_un_mute_button4;
     ProgressCalculator mProgressCalculator;
     public static final int SUCCESS = 1;
     public static final int FAILED = 2;
@@ -154,6 +157,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         vv4 = findViewById(R.id.vv4);
         ll1 = findViewById(R.id.ll1);
         // set params layout 1
+       // circularProgressBar = findViewById(R.id.circularProgressBar);
 
         Log.e("height",String.valueOf(height - 150));
 
@@ -207,6 +211,143 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         iv_swap.setOnClickListener(this);
         iv_select_new_file.setOnClickListener(this);
         iv_mute.setOnClickListener(this);
+        // mute buttons
+        iv_mute_button1 = findViewById(R.id.iv_mute_button_1);
+        iv_un_mute_button1 = findViewById(R.id.iv_un_mute_button_1);
+
+        iv_mute_button2 = findViewById(R.id.iv_mute_button_2);
+        iv_un_mute_button2 = findViewById(R.id.iv_un_mute_button_2);
+
+        iv_mute_button3 = findViewById(R.id.iv_mute_button_3);
+        iv_un_mute_button3 = findViewById(R.id.iv_un_mute_button_3);
+
+        iv_mute_button4 = findViewById(R.id.iv_mute_button_4);
+        iv_un_mute_button4 = findViewById(R.id.iv_un_mute_button_4);
+        iv_mute_button1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(!videosMuteStatus[0]) {
+                    try {
+                        executeRemoveAudiFromVideoCommand(path_vv1);
+                    } catch (FFmpegCommandAlreadyRunningException e) {
+                        e.printStackTrace();
+                    }
+                    videosMuteStatus[0] = true;
+                    iv_un_mute_button1.setVisibility(View.VISIBLE);
+                    iv_mute_button1.setVisibility(View.GONE);
+                }
+            }
+        });
+        iv_un_mute_button1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(videosMuteStatus[0]) {
+                    try {
+                        executeWaterMarkCommandVideo1(filePath);
+                    } catch (FFmpegCommandAlreadyRunningException e) {
+                        e.printStackTrace();
+                    }
+                    videosMuteStatus[0] = false;
+                    iv_un_mute_button1.setVisibility(View.GONE);
+                    iv_mute_button1.setVisibility(View.VISIBLE);
+                }
+            }
+        });
+
+        //button 2
+        iv_mute_button2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(!videosMuteStatus[1]) {
+                    try {
+                        executeRemoveAudiFromVideoCommand(path_vv2);
+                    } catch (FFmpegCommandAlreadyRunningException e) {
+                        e.printStackTrace();
+                    }
+                    videosMuteStatus[1] = true;
+                    iv_un_mute_button2.setVisibility(View.VISIBLE);
+                    iv_mute_button2.setVisibility(View.GONE);
+                }
+            }
+        });
+        iv_un_mute_button2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(videosMuteStatus[1]) {
+                    try {
+                        executeWaterMarkCommandVideo2(filePath);
+                    } catch (FFmpegCommandAlreadyRunningException e) {
+                        e.printStackTrace();
+                    }
+                    videosMuteStatus[1] = false;
+                    iv_un_mute_button2.setVisibility(View.GONE);
+                    iv_mute_button2.setVisibility(View.VISIBLE);
+                }
+            }
+        });
+        //button 3
+        iv_mute_button3.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(!videosMuteStatus[2]) {
+                    try {
+                        executeRemoveAudiFromVideoCommand(path_vv3);
+                    } catch (FFmpegCommandAlreadyRunningException e) {
+                        e.printStackTrace();
+                    }
+                    videosMuteStatus[2] = true;
+                    iv_un_mute_button3.setVisibility(View.VISIBLE);
+                    iv_mute_button3.setVisibility(View.GONE);
+                }
+            }
+        });
+        iv_un_mute_button3.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(videosMuteStatus[2]) {
+                    try {
+                        executeWaterMarkCommandVideo3(filePath);
+                    } catch (FFmpegCommandAlreadyRunningException e) {
+                        e.printStackTrace();
+                    }
+                    videosMuteStatus[2] = false;
+                    iv_un_mute_button3.setVisibility(View.GONE);
+                    iv_mute_button3.setVisibility(View.VISIBLE);
+                }
+            }
+        });
+
+        //button 4
+        iv_mute_button4.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(!videosMuteStatus[3]) {
+                    try {
+                        executeRemoveAudiFromVideoCommand(path_vv4);
+                    } catch (FFmpegCommandAlreadyRunningException e) {
+                        e.printStackTrace();
+                    }
+                    videosMuteStatus[3] = true;
+                    iv_un_mute_button4.setVisibility(View.VISIBLE);
+                    iv_mute_button4.setVisibility(View.GONE);
+                }
+            }
+        });
+        iv_un_mute_button4.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(videosMuteStatus[3]) {
+                    try {
+                        executeWaterMarkCommandVideo4(filePath);
+                    } catch (FFmpegCommandAlreadyRunningException e) {
+                        e.printStackTrace();
+                    }
+                    videosMuteStatus[3] = false;
+                    iv_un_mute_button4.setVisibility(View.GONE);
+                    iv_mute_button4.setVisibility(View.VISIBLE);
+                }
+            }
+        });
         iv_trim.setOnClickListener(this);
         iv_create_collage.setOnClickListener(this);
         tv_merge.setOnClickListener(this);
@@ -678,6 +819,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (resultCode == RESULT_OK) {
+            filePath="";
             if (requestCode == PICK_FILE_REQUEST_CODE) {
                 try {
                     displayOptions();
@@ -689,7 +831,15 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     else
                         filePath = GetFilePathFromDevice.getPath(MainActivity.this, data.getData());
                     Log.e("FILE PATH", "---" + filePath);
-                    isToAddWatermark = true;
+                    if(selected_vv==1)
+                        isToAddWatermark1 = true;
+                    else if(selected_vv==2)
+                        isToAddWatermark2 = true;
+                    else if(selected_vv==3)
+                        isToAddWatermark3 = true;
+                    else if(selected_vv==4)
+                        isToAddWatermark4 = true;
+
                     selectVVToLoadVideoInVideoView(filePath);
 
                     Uri uri = data.getData();
@@ -759,31 +909,43 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     path_vv1 = filesPath;
                     loadVideo1(path_vv1);
                     timeInMillis_v1 = videoTime(path_vv1);
+                    if(isToAddWatermark1) {
+                        executeWaterMarkCommandVideo1(filesPath);
+                        isToAddWatermark1=false;
+                    }
                     break;
                 case 2:
                     path_vv2 = filesPath;
                     loadVideo2(path_vv2);
                     timeInMillis_v2 = videoTime(path_vv2);
+                    if(isToAddWatermark2) {
+                        executeWaterMarkCommandVideo2(filesPath);
+                        isToAddWatermark2=false;
+                    }
                     break;
                 case 3:
                     path_vv3 = filesPath;
                     loadVideo3(path_vv3);
                     timeInMillis_v3 = videoTime(path_vv3);
+                    if(isToAddWatermark3) {
+                        executeWaterMarkCommandVideo3(filesPath);
+                        isToAddWatermark3=false;
+                    }
                     break;
                 case 4:
                     path_vv4 = filesPath;
                     loadVideo4(path_vv4);
                     timeInMillis_v4 = videoTime(path_vv4);
+                    if(isToAddWatermark4) {
+                        executeWaterMarkCommandVideo4(filesPath);
+                        isToAddWatermark4=false;
+                    }
                     break;
             }
             if(isToSetResolution) {
 //                executeWaterMarkCommand(filesPath);
                 //executeMaintainAspectRatioCommand(filesPath);
                 isToSetResolution=false;
-            } if(isToAddWatermark) {
-                executeWaterMarkCommand(filesPath);
-//                executeMaintainAspectRatioCommand(filesPath);
-                isToAddWatermark=false;
             }
         } catch (FFmpegCommandAlreadyRunningException e) {
             e.printStackTrace();
@@ -1027,7 +1189,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     public void setLayoutSelected(){
         if(selected_vv==1){
-            ll1.setBackgroundResource(R.drawable.selection_bg);
+            ll1.setBackgroundResource(R.drawable.home_selection);
             ll2.setBackgroundResource(R.drawable.main_lay_background);
             ll3.setBackgroundResource(R.drawable.main_lay_background);
             ll4.setBackgroundResource(R.drawable.main_lay_background);
@@ -1039,7 +1201,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 //                tv_mute.setText("Un mute This Video");
         }else if(selected_vv==2){
             ll1.setBackgroundResource(R.drawable.main_lay_background);
-            ll2.setBackgroundResource(R.drawable.selection_bg);
+            ll2.setBackgroundResource(R.drawable.home_selection);
             ll3.setBackgroundResource(R.drawable.main_lay_background);
             ll4.setBackgroundResource(R.drawable.main_lay_background);
             if(!videosMuteStatus[1])
@@ -1051,7 +1213,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }else if(selected_vv==3){
             ll1.setBackgroundResource(R.drawable.main_lay_background);
             ll2.setBackgroundResource(R.drawable.main_lay_background);
-            ll3.setBackgroundResource(R.drawable.selection_bg);
+            ll3.setBackgroundResource(R.drawable.home_selection);
             ll4.setBackgroundResource(R.drawable.main_lay_background);
             if(!videosMuteStatus[2])
                 iv_mute.setImageResource(R.drawable.ic_volume_on);
@@ -1063,7 +1225,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             ll1.setBackgroundResource(R.drawable.main_lay_background);
             ll2.setBackgroundResource(R.drawable.main_lay_background);
             ll3.setBackgroundResource(R.drawable.main_lay_background);
-            ll4.setBackgroundResource(R.drawable.selection_bg);
+            ll4.setBackgroundResource(R.drawable.home_selection);
             if(!videosMuteStatus[3])
                 iv_mute.setImageResource(R.drawable.ic_volume_on);
 //                tv_mute.setText("Mute This Video");
@@ -1487,7 +1649,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             }
         });
     }
-    public void executeWaterMarkCommand(final String preFilePath) throws FFmpegCommandAlreadyRunningException {
+    public void executeWaterMarkCommandVideo1(final String preFilePath) throws FFmpegCommandAlreadyRunningException {
         progressBar = new ProgressDialog(this);
         progressBar.setCancelable(false);//you can cancel it by pressing back button
         progressBar.setMessage("Loading ...");
@@ -1495,6 +1657,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         progressBar.setProgress(0);//initially progress is 0
         progressBar.setMax(100);//sets the maximum value 100
         progressBar.show();//displays the progress bar
+        // Set Progress
+// or with animation
+        //circularProgressBar.setProgressWithAnimation(0.0f, (long) 1000); // =1s
+
+// Set Progress Max
+       // circularProgressBar.setVisibility(View.VISIBLE);
+        //circularProgressBar.setProgressMax(100f);
 //        final ProgressDialog progressDialog = ProgressDialog.show(this, "", "Please wait...", true);
         createDirectory();
         String logo = Environment.getExternalStorageDirectory().getAbsolutePath() +"/num"+(selected_vv)+".png";
@@ -1502,10 +1671,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         String mFileName = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES).getAbsolutePath();
         mFileName += "/MergedVideos/"+timeMillis+".mp4";
         System.out.println("::logo::"+logo);
+        // this is meant for a fixed size water mark replace W/H with wifht and height
+        //[1:v][0:v]scale2ref=(W/H)*ih/8/sar:ih/8[wm][base];[base][wm]
 //        String[] cutVideo = {"-ss", "" + startTime / 1000, "-y", "-i", videoPath, "-t", "" + (videoMillis - startTime-(videoMillis-endTime)) / 1000, "-s", "320x240", "-r", "15", "-vcodec", "mpeg4", "-b:v", "2097152", "-b:a", "48000", "-ac", "2", "-ar", "22050", mFileName};
 //        String[] addWatermark ={"-i", preFilePath, "-i", logo, "-filter_complex", "overlay=10:main_h-overlay_h-10", mFileName};
           //"overlay=(main_w-overlay_w)/2:main_h-overlay_h"
-        String[] addWatermark ={"-i", preFilePath, "-i", logo, "-filter_complex", "[0:v][1:v] overlay=(main_w-overlay_w)/2:main_h-overlay_h","-vcodec", "h264", "-b:v", "2097152","-b:a", "48000","-c:v", "libx264",  "-preset", "ultrafast","-c:a", "copy","-me_method","zero","-tune","fastdecode","-tune","zerolatency","-strict","2","-pix_fmt","yuv420p", "-crf", "28", "-acodec", "aac", "-ar", "22050", "-ac", "2","-r","20", mFileName};
+        String[] addWatermark ={"-i", preFilePath, "-i", logo, "-filter_complex", "[1:v]scale=320:240 [ovrl],[0:v][ovrl] overlay=(main_w-overlay_w)/2:main_h-overlay_h","-vcodec", "h264", "-b:v", "2097152","-b:a", "48000","-c:v", "libx264",  "-preset", "ultrafast","-c:a", "copy","-me_method","zero","-tune","fastdecode","-tune","zerolatency","-strict","2","-pix_fmt","yuv420p", "-crf", "28", "-acodec", "aac", "-ar", "22050", "-ac", "2","-r","20", mFileName};
 //        "ffmpeg -i input.mp4 -i logo.png -filter_complex \\\n" +
 //                "\"overlay=(main_w-overlay_w)/2:(main_h-overlay_h)/2\" \\\n" +
 //                "-codec:a copy output.mp4"
@@ -1539,6 +1710,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                         progress = 100;
                     }
                     progressBar.setProgress(progress);
+                    //circularProgressBar.setProgress(progress);
                     System.out.println("pro_progress"+progress+"%%");
 //                    listener.onProgress(progress);
                 }
@@ -1548,6 +1720,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 if(progress==100){
                     Log.e("i am ","here");
                     progressBar.setProgress(100);
+                    //circularProgressBar.setProgress(100f);
                 }
                 System.out.println("command:onProgress:"+message);
             }
@@ -1555,7 +1728,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             @Override
             public void onFailure(String message) {
                 status = FAILED;
-                progressBar.dismiss();
+                //progressBar.dismiss();
                 System.out.println("command:Failure:"+message);
             }
 
@@ -1566,7 +1739,309 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
             @Override
             public void onFinish() {
+                //circularProgressBar.setProgress(0.0f);
+                //circularProgressBar.refreshDrawableState();
+                //circularProgressBar.setVisibility(View.GONE);
                 progressBar.dismiss();
+                iv_mute_button1.setVisibility(View.VISIBLE);
+//                selectVVToLoadVideoInVideoView();
+                System.out.println("command:onFinish:");
+            }
+        });
+    }
+
+    //ffmpeg 2
+    public void executeWaterMarkCommandVideo2(final String preFilePath) throws FFmpegCommandAlreadyRunningException {
+        progressBar = new ProgressDialog(this);
+        progressBar.setCancelable(false);//you can cancel it by pressing back button
+        progressBar.setMessage("Loading ...");
+        progressBar.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
+        progressBar.setProgress(0);//initially progress is 0
+        progressBar.setMax(100);//sets the maximum value 100
+        progressBar.show();//displays the progress bar
+        // Set Progress
+// or with animation
+        //circularProgressBar.setProgressWithAnimation(0.0f, (long) 1000); // =1s
+
+// Set Progress Max
+        // circularProgressBar.setVisibility(View.VISIBLE);
+        //circularProgressBar.setProgressMax(100f);
+//        final ProgressDialog progressDialog = ProgressDialog.show(this, "", "Please wait...", true);
+        createDirectory();
+        String logo = Environment.getExternalStorageDirectory().getAbsolutePath() +"/num"+(selected_vv)+".png";
+        String timeMillis = String.valueOf(new Date().getTime());
+        String mFileName = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES).getAbsolutePath();
+        mFileName += "/MergedVideos/"+timeMillis+".mp4";
+        System.out.println("::logo::"+logo);
+//        String[] cutVideo = {"-ss", "" + startTime / 1000, "-y", "-i", videoPath, "-t", "" + (videoMillis - startTime-(videoMillis-endTime)) / 1000, "-s", "320x240", "-r", "15", "-vcodec", "mpeg4", "-b:v", "2097152", "-b:a", "48000", "-ac", "2", "-ar", "22050", mFileName};
+//        String[] addWatermark ={"-i", preFilePath, "-i", logo, "-filter_complex", "overlay=10:main_h-overlay_h-10", mFileName};
+        //"overlay=(main_w-overlay_w)/2:main_h-overlay_h"
+        String[] addWatermark ={"-i", preFilePath, "-i", logo, "-filter_complex", "[1:v]scale=320:240 [ovrl],[0:v][ovrl] overlay=(main_w-overlay_w)/2:main_h-overlay_h","-vcodec", "h264", "-b:v", "2097152","-b:a", "48000","-c:v", "libx264",  "-preset", "ultrafast","-c:a", "copy","-me_method","zero","-tune","fastdecode","-tune","zerolatency","-strict","2","-pix_fmt","yuv420p", "-crf", "28", "-acodec", "aac", "-ar", "22050", "-ac", "2","-r","20", mFileName};
+//        "ffmpeg -i input.mp4 -i logo.png -filter_complex \\\n" +
+//                "\"overlay=(main_w-overlay_w)/2:(main_h-overlay_h)/2\" \\\n" +
+//                "-codec:a copy output.mp4"
+
+
+//        String root = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES).toString();
+//        File myDir = new File(root + "/MergedVideos");
+//        if(!myDir.exists())
+//            myDir.mkdirs();
+
+        mProgressCalculator = new ProgressCalculator();
+        final String finalMFileName = mFileName;
+        fFmpeg.execute(addWatermark, new ExecuteBinaryResponseHandler(){
+            @Override
+            public void onSuccess(String message) {
+                status = SUCCESS;
+                progressBar.dismiss();
+//                Toast.makeText(MainActivity.this, "Water mark added!", Toast.LENGTH_SHORT).show();
+                selectVVToLoadVideoInVideoView(finalMFileName);
+                System.out.println("command:Success:"+message);
+            }
+
+            @Override
+            public void onProgress(String message) {
+                status = RUNNING;
+                Log.e("VideoCronProgress", message);
+                int progress = mProgressCalculator.calcProgress(message);
+                if (progress != 0 && progress <= 100) {
+                    if (progress >= 99) {
+                        progressBar.setMessage("Almost done!");
+                        progress = 100;
+                    }
+                    progressBar.setProgress(progress);
+                    //circularProgressBar.setProgress(progress);
+                    System.out.println("pro_progress"+progress+"%%");
+//                    listener.onProgress(progress);
+                }
+                if(progress==50){
+                    progressBar.setMessage("Compressing Video, Please wait!!");
+                }
+                if(progress==100){
+                    Log.e("i am ","here");
+                    progressBar.setProgress(100);
+                    //circularProgressBar.setProgress(100f);
+                }
+                System.out.println("command:onProgress:"+message);
+            }
+
+            @Override
+            public void onFailure(String message) {
+                status = FAILED;
+                //progressBar.dismiss();
+                System.out.println("command:Failure:"+message);
+            }
+
+            @Override
+            public void onStart() {
+                System.out.println("command:onStart:");
+            }
+
+            @Override
+            public void onFinish() {
+                //circularProgressBar.setProgress(0.0f);
+                //circularProgressBar.refreshDrawableState();
+                //circularProgressBar.setVisibility(View.GONE);
+                progressBar.dismiss();
+                iv_mute_button2.setVisibility(View.VISIBLE);
+//                selectVVToLoadVideoInVideoView();
+                System.out.println("command:onFinish:");
+            }
+        });
+    }
+    // ffmpeg 3
+    public void executeWaterMarkCommandVideo3(final String preFilePath) throws FFmpegCommandAlreadyRunningException {
+        progressBar = new ProgressDialog(this);
+        progressBar.setCancelable(false);//you can cancel it by pressing back button
+        progressBar.setMessage("Loading ...");
+        progressBar.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
+        progressBar.setProgress(0);//initially progress is 0
+        progressBar.setMax(100);//sets the maximum value 100
+        progressBar.show();//displays the progress bar
+        // Set Progress
+// or with animation
+        //circularProgressBar.setProgressWithAnimation(0.0f, (long) 1000); // =1s
+
+// Set Progress Max
+        // circularProgressBar.setVisibility(View.VISIBLE);
+        //circularProgressBar.setProgressMax(100f);
+//        final ProgressDialog progressDialog = ProgressDialog.show(this, "", "Please wait...", true);
+        createDirectory();
+        String logo = Environment.getExternalStorageDirectory().getAbsolutePath() +"/num"+(selected_vv)+".png";
+        String timeMillis = String.valueOf(new Date().getTime());
+        String mFileName = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES).getAbsolutePath();
+        mFileName += "/MergedVideos/"+timeMillis+".mp4";
+        System.out.println("::logo::"+logo);
+//        String[] cutVideo = {"-ss", "" + startTime / 1000, "-y", "-i", videoPath, "-t", "" + (videoMillis - startTime-(videoMillis-endTime)) / 1000, "-s", "320x240", "-r", "15", "-vcodec", "mpeg4", "-b:v", "2097152", "-b:a", "48000", "-ac", "2", "-ar", "22050", mFileName};
+//        String[] addWatermark ={"-i", preFilePath, "-i", logo, "-filter_complex", "overlay=10:main_h-overlay_h-10", mFileName};
+        //"overlay=(main_w-overlay_w)/2:main_h-overlay_h"
+        String[] addWatermark ={"-i", preFilePath, "-i", logo, "-filter_complex", "[1:v]scale=320:240 [ovrl],[0:v][ovrl] overlay=(main_w-overlay_w)/2:main_h-overlay_h","-vcodec", "h264", "-b:v", "2097152","-b:a", "48000","-c:v", "libx264",  "-preset", "ultrafast","-c:a", "copy","-me_method","zero","-tune","fastdecode","-tune","zerolatency","-strict","2","-pix_fmt","yuv420p", "-crf", "28", "-acodec", "aac", "-ar", "22050", "-ac", "2","-r","20", mFileName};
+//        "ffmpeg -i input.mp4 -i logo.png -filter_complex \\\n" +
+//                "\"overlay=(main_w-overlay_w)/2:(main_h-overlay_h)/2\" \\\n" +
+//                "-codec:a copy output.mp4"
+
+
+//        String root = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES).toString();
+//        File myDir = new File(root + "/MergedVideos");
+//        if(!myDir.exists())
+//            myDir.mkdirs();
+
+        mProgressCalculator = new ProgressCalculator();
+        final String finalMFileName = mFileName;
+        fFmpeg.execute(addWatermark, new ExecuteBinaryResponseHandler(){
+            @Override
+            public void onSuccess(String message) {
+                status = SUCCESS;
+                progressBar.dismiss();
+//                Toast.makeText(MainActivity.this, "Water mark added!", Toast.LENGTH_SHORT).show();
+                selectVVToLoadVideoInVideoView(finalMFileName);
+                System.out.println("command:Success:"+message);
+            }
+
+            @Override
+            public void onProgress(String message) {
+                status = RUNNING;
+                Log.e("VideoCronProgress", message);
+                int progress = mProgressCalculator.calcProgress(message);
+                if (progress != 0 && progress <= 100) {
+                    if (progress >= 99) {
+                        progressBar.setMessage("Almost done!");
+                        progress = 100;
+                    }
+                    progressBar.setProgress(progress);
+                    //circularProgressBar.setProgress(progress);
+                    System.out.println("pro_progress"+progress+"%%");
+//                    listener.onProgress(progress);
+                }
+                if(progress==50){
+                    progressBar.setMessage("Compressing Video, Please wait!!");
+                }
+                if(progress==100){
+                    Log.e("i am ","here");
+                    progressBar.setProgress(100);
+                    //circularProgressBar.setProgress(100f);
+                }
+                System.out.println("command:onProgress:"+message);
+            }
+
+            @Override
+            public void onFailure(String message) {
+                status = FAILED;
+                //progressBar.dismiss();
+                System.out.println("command:Failure:"+message);
+            }
+
+            @Override
+            public void onStart() {
+                System.out.println("command:onStart:");
+            }
+
+            @Override
+            public void onFinish() {
+                //circularProgressBar.setProgress(0.0f);
+                //circularProgressBar.refreshDrawableState();
+                //circularProgressBar.setVisibility(View.GONE);
+                progressBar.dismiss();
+                iv_mute_button3.setVisibility(View.VISIBLE);
+//                selectVVToLoadVideoInVideoView();
+                System.out.println("command:onFinish:");
+            }
+        });
+    }
+    //ffmpeg 4
+    public void executeWaterMarkCommandVideo4(final String preFilePath) throws FFmpegCommandAlreadyRunningException {
+        progressBar = new ProgressDialog(this);
+        progressBar.setCancelable(false);//you can cancel it by pressing back button
+        progressBar.setMessage("Loading ...");
+        progressBar.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
+        progressBar.setProgress(0);//initially progress is 0
+        progressBar.setMax(100);//sets the maximum value 100
+        progressBar.show();//displays the progress bar
+        // Set Progress
+// or with animation
+        //circularProgressBar.setProgressWithAnimation(0.0f, (long) 1000); // =1s
+
+// Set Progress Max
+        // circularProgressBar.setVisibility(View.VISIBLE);
+        //circularProgressBar.setProgressMax(100f);
+//        final ProgressDialog progressDialog = ProgressDialog.show(this, "", "Please wait...", true);
+        createDirectory();
+        String logo = Environment.getExternalStorageDirectory().getAbsolutePath() +"/num"+(selected_vv)+".png";
+        String timeMillis = String.valueOf(new Date().getTime());
+        String mFileName = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES).getAbsolutePath();
+        mFileName += "/MergedVideos/"+timeMillis+".mp4";
+        System.out.println("::logo::"+logo);
+//        String[] cutVideo = {"-ss", "" + startTime / 1000, "-y", "-i", videoPath, "-t", "" + (videoMillis - startTime-(videoMillis-endTime)) / 1000, "-s", "320x240", "-r", "15", "-vcodec", "mpeg4", "-b:v", "2097152", "-b:a", "48000", "-ac", "2", "-ar", "22050", mFileName};
+//        String[] addWatermark ={"-i", preFilePath, "-i", logo, "-filter_complex", "overlay=10:main_h-overlay_h-10", mFileName};
+        //"overlay=(main_w-overlay_w)/2:main_h-overlay_h"
+        String[] addWatermark ={"-i", preFilePath, "-i", logo, "-filter_complex", "[1:v]scale=320:240 [ovrl],[0:v][ovrl] overlay=(main_w-overlay_w)/2:main_h-overlay_h","-vcodec", "h264", "-b:v", "2097152","-b:a", "48000","-c:v", "libx264",  "-preset", "ultrafast","-c:a", "copy","-me_method","zero","-tune","fastdecode","-tune","zerolatency","-strict","2","-pix_fmt","yuv420p", "-crf", "28", "-acodec", "aac", "-ar", "22050", "-ac", "2","-r","20", mFileName};
+//        "ffmpeg -i input.mp4 -i logo.png -filter_complex \\\n" +
+//                "\"overlay=(main_w-overlay_w)/2:(main_h-overlay_h)/2\" \\\n" +
+//                "-codec:a copy output.mp4"
+
+
+//        String root = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES).toString();
+//        File myDir = new File(root + "/MergedVideos");
+//        if(!myDir.exists())
+//            myDir.mkdirs();
+
+        mProgressCalculator = new ProgressCalculator();
+        final String finalMFileName = mFileName;
+        fFmpeg.execute(addWatermark, new ExecuteBinaryResponseHandler(){
+            @Override
+            public void onSuccess(String message) {
+                status = SUCCESS;
+                progressBar.dismiss();
+//                Toast.makeText(MainActivity.this, "Water mark added!", Toast.LENGTH_SHORT).show();
+                selectVVToLoadVideoInVideoView(finalMFileName);
+                System.out.println("command:Success:"+message);
+            }
+
+            @Override
+            public void onProgress(String message) {
+                status = RUNNING;
+                Log.e("VideoCronProgress", message);
+                int progress = mProgressCalculator.calcProgress(message);
+                if (progress != 0 && progress <= 100) {
+                    if (progress >= 99) {
+                        progressBar.setMessage("Almost done!");
+                        progress = 100;
+                    }
+                    progressBar.setProgress(progress);
+                    //circularProgressBar.setProgress(progress);
+                    System.out.println("pro_progress"+progress+"%%");
+//                    listener.onProgress(progress);
+                }
+                if(progress==50){
+                    progressBar.setMessage("Compressing Video, Please wait!!");
+                }
+                if(progress==100){
+                    Log.e("i am ","here");
+                    progressBar.setProgress(100);
+                    //circularProgressBar.setProgress(100f);
+                }
+                System.out.println("command:onProgress:"+message);
+            }
+
+            @Override
+            public void onFailure(String message) {
+                status = FAILED;
+                //progressBar.dismiss();
+                System.out.println("command:Failure:"+message);
+            }
+
+            @Override
+            public void onStart() {
+                System.out.println("command:onStart:");
+            }
+
+            @Override
+            public void onFinish() {
+                //circularProgressBar.setProgress(0.0f);
+                //circularProgressBar.refreshDrawableState();
+                //circularProgressBar.setVisibility(View.GONE);
+                progressBar.dismiss();
+                iv_mute_button4.setVisibility(View.VISIBLE);
 //                selectVVToLoadVideoInVideoView();
                 System.out.println("command:onFinish:");
             }
@@ -1607,7 +2082,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             public void onSuccess(String message) {
 //                progressDialog.dismiss();
 //                Toast.makeText(MainActivity.this, "Aspect Ratio added!", Toast.LENGTH_SHORT).show();
-                isToAddWatermark = true;
+                //isToAddWatermark = true;
                 selectVVToLoadVideoInVideoView(finalMFileName);
                 System.out.println("command:Success:"+message);
             }
@@ -1726,7 +2201,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         String timeMillis = String.valueOf(new Date().getTime());
         String mFileName = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES).getAbsolutePath();
         mFileName += "/MergedVideos/"+timeMillis+".mp4";
-          String[] audioRemovedVideo = new String[]{"-i", path, "-c", "copy", "-an", mFileName};
+          String[] audioRemovedVideo = new String[]{"-y","-i", path, "-c", "copy", "-an", mFileName};
 
 
 
@@ -1737,7 +2212,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 progressDialog.dismiss();
                 Toast.makeText(MainActivity.this, "Audio Removed!", Toast.LENGTH_SHORT).show();
                 selectVVToLoadVideoInVideoView(finalMFileName);
-                iv_mute.setImageResource(R.drawable.ic_volume_off);
                 System.out.println("command:Success:"+message);
             }
 

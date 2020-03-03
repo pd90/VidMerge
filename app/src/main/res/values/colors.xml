@@ -16,4 +16,5 @@
     <color name="line_button">#565758</color>
     <color name="black_translucent">#50000000</color>
     <color name="blue_box_color">#0DC19D</color>
+    <color name="home_box_color_selected">#00A3D4</color>
 </resources>
