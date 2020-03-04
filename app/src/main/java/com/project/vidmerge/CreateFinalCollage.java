@@ -195,13 +195,14 @@ public class CreateFinalCollage extends AppCompatActivity {
 //        "-crf", "23",
 //        "-preset", "veryfast",
 //                mFileName};
+        //String[] addWatermark ={"-i", preFilePath, "-i", logo, "-filter_complex", "[1][0]scale2ref=iw/8:ih/8[wm][vid];[vid][wm] overlay=(main_w-overlay_w)/2:main_h-overlay_h","-vcodec", "h264", "-b:v", "2097152","-b:a", "48000","-c:v", "libx264",  "-preset", "ultrafast","-c:a", "copy","-me_method","zero","-tune","fastdecode","-tune","zerolatency","-strict","2","-pix_fmt","yuv420p", "-crf", "28", "-acodec", "aac", "-ar", "22050", "-ac", "2","-r","20","-s", "406x720","-aspect", "9:16", mFileName};
 
 //        String[] saveMergedVideo = new String[]{"-i",path_vv1,"-i",path_vv1,"-filter_complex","hstack",mFileName };
 //        String[] saveMergedVideo = new String[]{"-i", path_vv1, "-i", path_vv1, "-i", path_vv1, "-i", path_vv1, "-filter_complex", "[0:v][1:v][2:v][3:v]xstack=inputs=4:layout=0_0|w0_0|0_h0|w0_h0[v]", "-map", "[v]",mFileName };
 // selected for four video without padding
 //     String[] saveMergedVideo = new String[]{"-i", path_vv1, "-i", path_vv1, "-i", path_vv1, "-i", path_vv1, "-filter_complex", "[0:v][1:v]hstack=inputs=2[top];[2:v][3:v]hstack=inputs=2[bottom];[top][bottom]vstack=inputs=2[v]", "-map", "[v]", mFileName};
         String[] saveMergedVideo = new String[]{"-i", path_vv1, "-i", path_vv3, "-i", path_vv2, "-i", path_vv4,"-filter_complex",
-                "[0:v]pad=iw:ih+150 :color=#F2F2F2[tl];[tl][1:v]vstack,pad=iw+150:ih :color=white[l];[2:v]pad=iw:ih+150 :color=white[tr];[tr][3:v]vstack[r];[l][r]hstack", mFileName};
+                "[0:v]pad=iw:ih+150 :color=#F2F2F2[tl];[tl][1:v]vstack,pad=iw+150:ih :color=white[l];[2:v]pad=iw:ih+150 :color=white[tr];[tr][3:v]vstack[r];[l][r]hstack","-vcodec", "h264", "-b:v", "2097152","-b:a", "48000","-c:v", "libx264",  "-preset", "ultrafast","-c:a", "copy","-me_method","zero","-tune","fastdecode","-tune","zerolatency","-strict","2","-pix_fmt","yuv420p", "-crf", "28", "-acodec", "aac", "-ar", "22050", "-ac", "2","-r","20","-s", "406x720","-aspect", "9:16",mFileName};
 
         mProgressCalculator = new ProgressCalculator();
         final String finalMFileName = mFileName;
