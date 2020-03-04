@@ -52,6 +52,7 @@ public class TrimmerActivity extends AppCompatActivity implements OnTrimVideoLis
              * get total duration of video file
              */
             Log.e("tg", "maxDuration = " + maxDuration);
+            Log.e("tg", "path = " + path);
             //mVideoTrimmer.setMaxDuration(maxDuration);
             mVideoTrimmer.setMaxDuration(maxDuration);
             mVideoTrimmer.setOnTrimVideoListener(this);
@@ -137,6 +138,7 @@ public class TrimmerActivity extends AppCompatActivity implements OnTrimVideoLis
     public void onError(final String message) {
         mProgressDialog.cancel();
 
+        Log.e("this is the error",message);
         runOnUiThread(new Runnable() {
             @Override
             public void run() {

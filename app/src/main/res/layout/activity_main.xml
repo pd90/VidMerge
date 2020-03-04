@@ -71,13 +71,13 @@
                             android:visibility="gone"
                             android:background="@drawable/ic_volume_off_black_24dp"/>
                         <com.mikhaellopez.circularprogressbar.CircularProgressBar
-                            android:id="@+id/circularProgressBar"
+                            android:id="@+id/circularProgressBar1"
                             android:layout_width="80dp"
                             android:layout_height="80dp"
                             app:cpb_background_progressbar_color="#b6bbd8"
                             app:cpb_background_progressbar_width="5dp"
                             app:cpb_progress_direction="to_right"
-                            app:cpb_progressbar_color="@color/background_progress_color"
+                            app:cpb_progressbar_color="@color/home_box_color_selected"
                             app:cpb_progressbar_width="6dp"
                             android:layout_gravity="center"
                             android:visibility="gone"
@@ -116,6 +116,18 @@
                             android:layout_margin="8dp"
                             android:visibility="gone"
                             android:background="@drawable/ic_volume_off_black_24dp"/>
+                        <com.mikhaellopez.circularprogressbar.CircularProgressBar
+                            android:id="@+id/circularProgressBar2"
+                            android:layout_width="80dp"
+                            android:layout_height="80dp"
+                            app:cpb_background_progressbar_color="#b6bbd8"
+                            app:cpb_background_progressbar_width="5dp"
+                            app:cpb_progress_direction="to_right"
+                            app:cpb_progressbar_color="@color/home_box_color_selected"
+                            app:cpb_progressbar_width="6dp"
+                            android:layout_gravity="center"
+                            android:visibility="gone"
+                            app:cpb_round_border="false" />
                     </FrameLayout>
 
                 </LinearLayout>
@@ -161,6 +173,18 @@
                             android:layout_margin="8dp"
                             android:visibility="gone"
                             android:background="@drawable/ic_volume_off_black_24dp"/>
+                        <com.mikhaellopez.circularprogressbar.CircularProgressBar
+                            android:id="@+id/circularProgressBar3"
+                            android:layout_width="80dp"
+                            android:layout_height="80dp"
+                            app:cpb_background_progressbar_color="#b6bbd8"
+                            app:cpb_background_progressbar_width="5dp"
+                            app:cpb_progress_direction="to_right"
+                            app:cpb_progressbar_color="@color/home_box_color_selected"
+                            app:cpb_progressbar_width="6dp"
+                            android:layout_gravity="center"
+                            android:visibility="gone"
+                            app:cpb_round_border="false" />
                     </FrameLayout>
 
                 </LinearLayout>
@@ -198,6 +222,18 @@
                             android:layout_margin="8dp"
                             android:visibility="gone"
                             android:background="@drawable/ic_volume_off_black_24dp"/>
+                        <com.mikhaellopez.circularprogressbar.CircularProgressBar
+                            android:id="@+id/circularProgressBar4"
+                            android:layout_width="80dp"
+                            android:layout_height="80dp"
+                            app:cpb_background_progressbar_color="#b6bbd8"
+                            app:cpb_background_progressbar_width="5dp"
+                            app:cpb_progress_direction="to_right"
+                            app:cpb_progressbar_color="@color/home_box_color_selected"
+                            app:cpb_progressbar_width="6dp"
+                            android:layout_gravity="center"
+                            android:visibility="gone"
+                            app:cpb_round_border="false" />
                     </FrameLayout>
 
                 </LinearLayout>

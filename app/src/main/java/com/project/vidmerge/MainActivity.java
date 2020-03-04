@@ -157,7 +157,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         vv4 = findViewById(R.id.vv4);
         ll1 = findViewById(R.id.ll1);
         // set params layout 1
-        circularProgressBar = findViewById(R.id.circularProgressBar);
+       // circularProgressBar = findViewById(R.id.circularProgressBar);
 
         Log.e("height",String.valueOf(height - 150));
 
@@ -173,18 +173,18 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         LinearLayout.LayoutParams params2= (LinearLayout.LayoutParams) ll2.getLayoutParams();
         LinearLayout.LayoutParams params3 = (LinearLayout.LayoutParams) ll3.getLayoutParams();
         LinearLayout.LayoutParams params4 = (LinearLayout.LayoutParams) ll4.getLayoutParams();
-        if(density>320&&density<480) {
+        if(density>=320&&density<=480) {
             params1.height = height - 180;
             params2.height = height - 180;
             params3.height = height - 180;
             params4.height = height - 180;
-        }else if(density>DisplayMetrics.DENSITY_HIGH&&density<320){
+        }else if(density>=DisplayMetrics.DENSITY_HIGH&&density<=320){
             params1.height = height - 100;
             params2.height = height - 100;
             params3.height = height - 100;
             params4.height = height - 100;
         }
-        else if(density<DisplayMetrics.DENSITY_HIGH&&density>DisplayMetrics.DENSITY_MEDIUM){
+        else if(density<=DisplayMetrics.DENSITY_HIGH&&density>=DisplayMetrics.DENSITY_MEDIUM){
             params1.height = height - 50;
             params2.height = height - 50;
             params3.height = height - 50;
@@ -379,9 +379,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         if(type==1)
             path = "android.resource://" + getPackageName() + "/" + R.raw.blue_new;
         else if(type==2)
-            path = "android.resource://" + getPackageName() + "/" + R.raw.green_bg;
+            path = "android.resource://" + getPackageName() + "/" + R.raw.yellow_new;
         else if(type==3)
-            path = "android.resource://" + getPackageName() + "/" + R.raw.purple_bg;
+            path = "android.resource://" + getPackageName() + "/" + R.raw.purple_new;
+        else if(type==4)
+            path = "android.resource://" + getPackageName() + "/" + R.raw.green_new;
+        else if(type==5)
+            path = "android.resource://" + getPackageName() + "/" + R.raw.red_new;
 
          String logo_path = "android.resource://" + getPackageName() + "/" + R.raw.logo;
 //        vv_bg.setVideoURI(Uri.parse(path));
@@ -526,7 +530,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 break;
             case R.id.iv_create_collage:
             case R.id.tv_merge:
-                    if(isVideosCollageable()) {
+                int count=0;
+                  for(int i=0;i<videosMuteStatus.length;i++){
+                    if(videosMuteStatus[i]){
+                           count++;
+                     }
+                 }
+                if(isVideosCollageable()) {
+                    if(count==3){
                         Intent intent = new Intent(MainActivity.this, CreateFinalCollage.class);
                         intent.putExtra("PATH1", path_vv1);
                         intent.putExtra("PATH2", path_vv2);
@@ -535,10 +546,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                         intent.putExtra("TYPE", type);
                         startActivity(intent);
                         finish();
-//                        executeSaveOverlayedVideoCommand();
+                    }else{
+                        Toast.makeText(getApplicationContext(), "Please mute 3 videos and keep 1 unmuted", Toast.LENGTH_SHORT).show();
+                    }
+//                    executeSaveOverlayedVideoCommand();
                     }
                     else
-                    Toast.makeText(getApplicationContext(), "Please select all videos.", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), "Please add all the videos.", Toast.LENGTH_SHORT).show();
                 break;
             case R.id.ll1:
                 selected_vv=1;
@@ -1013,6 +1027,31 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         } catch (FFmpegCommandAlreadyRunningException e) {
             e.printStackTrace();
         }
+    }
+
+    public void selectVVToLoadVideoInVideoViewAfterWM(String filesPath,int videoNum){
+            switch (videoNum){
+                case 1:
+                    path_vv1 = filesPath;
+                    loadVideo1(path_vv1);
+                    timeInMillis_v1 = videoTime(path_vv1);
+                    break;
+                case 2:
+                    path_vv2 = filesPath;
+                    loadVideo2(path_vv2);
+                    timeInMillis_v2 = videoTime(path_vv2);
+                    break;
+                case 3:
+                    path_vv3 = filesPath;
+                    loadVideo3(path_vv3);
+                    timeInMillis_v3 = videoTime(path_vv3);
+                    break;
+                case 4:
+                    path_vv4 = filesPath;
+                    loadVideo4(path_vv4);
+                    timeInMillis_v4 = videoTime(path_vv4);
+                    break;
+            }
     }
 
 //    public void loadVideologo(String path){
@@ -1724,20 +1763,20 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         });
     }
     public void executeWaterMarkCommandVideo1(final String preFilePath) throws FFmpegCommandAlreadyRunningException {
-      /*  progressBar = new ProgressDialog(this);
+        progressBar = new ProgressDialog(this);
         progressBar.setCancelable(false);//you can cancel it by pressing back button
-        progressBar.setMessage("Loading ...");
+        progressBar.setMessage("Processing video,please wait ...");
         progressBar.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
         progressBar.setProgress(0);//initially progress is 0
         progressBar.setMax(100);//sets the maximum value 100
-        progressBar.show();//displays the progress bar*/
+        progressBar.show();//displays the progress bar
         // Set Progress
 // or with animation
-        circularProgressBar.setProgressWithAnimation(0.0f, (long) 1000); // =1s
+        //circularProgressBar.setProgressWithAnimation(0.0f, (long) 1000); // =1s
 
 // Set Progress Max
-        circularProgressBar.setVisibility(View.VISIBLE);
-        circularProgressBar.setProgressMax(100f);
+       // circularProgressBar.setVisibility(View.VISIBLE);
+        //circularProgressBar.setProgressMax(100f);
 //        final ProgressDialog progressDialog = ProgressDialog.show(this, "", "Please wait...", true);
         createDirectory();
         String logo = Environment.getExternalStorageDirectory().getAbsolutePath() +"/num"+(selected_vv)+".png";
@@ -1767,7 +1806,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             @Override
             public void onSuccess(String message) {
                 status = SUCCESS;
-                //progressBar.dismiss();
+                progressBar.dismiss();
 //                Toast.makeText(MainActivity.this, "Water mark added!", Toast.LENGTH_SHORT).show();
                 selectVVToLoadVideoInVideoView(finalMFileName);
                 System.out.println("command:Success:"+message);
@@ -1780,21 +1819,21 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 int progress = mProgressCalculator.calcProgress(message);
                 if (progress != 0 && progress <= 100) {
                     if (progress >= 99) {
-                        //progressBar.setMessage("Almost done!");
+                        progressBar.setMessage("Almost done!");
                         progress = 100;
                     }
-                    //progressBar.setProgress(progress);
-                    circularProgressBar.setProgress(progress);
+                    progressBar.setProgress(progress);
+                    //circularProgressBar.setProgress(progress);
                     System.out.println("pro_progress"+progress+"%%");
 //                    listener.onProgress(progress);
                 }
                 if(progress==50){
-                    //progressBar.setMessage("Compressing Video, Please wait!!");
+                    progressBar.setMessage("Compressing Video, Please wait!!");
                 }
                 if(progress==100){
                     Log.e("i am ","here");
-                    //progressBar.setProgress(100);
-                    circularProgressBar.setProgress(100f);
+                    progressBar.setProgress(100);
+                    //circularProgressBar.setProgress(100f);
                 }
                 System.out.println("command:onProgress:"+message);
             }
@@ -1813,10 +1852,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
             @Override
             public void onFinish() {
-                circularProgressBar.setProgress(0.0f);
-                circularProgressBar.refreshDrawableState();
-                circularProgressBar.setVisibility(View.GONE);
-                //progressBar.dismiss();
+                //circularProgressBar.setProgress(0.0f);
+                //circularProgressBar.refreshDrawableState();
+                //circularProgressBar.setVisibility(View.GONE);
+                progressBar.dismiss();
                 iv_mute_button1.setVisibility(View.VISIBLE);
 //                selectVVToLoadVideoInVideoView();
                 System.out.println("command:onFinish:");
@@ -1828,7 +1867,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public void executeWaterMarkCommandVideo2(final String preFilePath) throws FFmpegCommandAlreadyRunningException {
         progressBar = new ProgressDialog(this);
         progressBar.setCancelable(false);//you can cancel it by pressing back button
-        progressBar.setMessage("Loading ...");
+        progressBar.setMessage("Processing video,please wait ...");
         progressBar.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
         progressBar.setProgress(0);//initially progress is 0
         progressBar.setMax(100);//sets the maximum value 100
@@ -1927,7 +1966,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public void executeWaterMarkCommandVideo3(final String preFilePath) throws FFmpegCommandAlreadyRunningException {
         progressBar = new ProgressDialog(this);
         progressBar.setCancelable(false);//you can cancel it by pressing back button
-        progressBar.setMessage("Loading ...");
+        progressBar.setMessage("Processing video,please wait ...");
         progressBar.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
         progressBar.setProgress(0);//initially progress is 0
         progressBar.setMax(100);//sets the maximum value 100
@@ -2026,7 +2065,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public void executeWaterMarkCommandVideo4(final String preFilePath) throws FFmpegCommandAlreadyRunningException {
         progressBar = new ProgressDialog(this);
         progressBar.setCancelable(false);//you can cancel it by pressing back button
-        progressBar.setMessage("Loading ...");
+        progressBar.setMessage("Processing video,please wait ...");
         progressBar.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
         progressBar.setProgress(0);//initially progress is 0
         progressBar.setMax(100);//sets the maximum value 100
@@ -2126,7 +2165,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         progressBar = new ProgressDialog(this);
         progressBar.setCancelable(false);//you can cancel it by pressing back button
-        progressBar.setMessage("Loading ...");
+        progressBar.setMessage("Processing video,please wait ...");
         progressBar.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
         progressBar.setProgress(0);//initially progress is 0
         progressBar.setMax(100);//sets the maximum value 100

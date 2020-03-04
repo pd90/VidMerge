@@ -1,4 +1,4 @@
-package com.project.vidmerge.videoTrimmer;/*
+/*
  * MIT License
  *
  * Copyright (c) 2016 Knowledge, education for life.
@@ -21,6 +21,7 @@ package com.project.vidmerge.videoTrimmer;/*
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
+package com.project.vidmerge.videoTrimmer;
 
 import android.content.Context;
 import android.media.MediaMetadataRetriever;
@@ -44,10 +45,8 @@ import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.VideoView;
 
-import java.io.File;
-import java.lang.ref.WeakReference;
-import java.util.ArrayList;
-import java.util.List;
+import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
 
 import com.project.vidmerge.R;
 import com.project.vidmerge.videoTrimmer.interfaces.OnHgLVideoListener;
@@ -62,10 +61,13 @@ import com.project.vidmerge.videoTrimmer.view.RangeSeekBarView;
 import com.project.vidmerge.videoTrimmer.view.Thumb;
 import com.project.vidmerge.videoTrimmer.view.TimeLineView;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.RequiresApi;
+import java.io.File;
+import java.lang.ref.WeakReference;
+import java.util.ArrayList;
+import java.util.List;
 
 import static com.project.vidmerge.videoTrimmer.utils.TrimVideoUtils.stringForTime;
+
 
 public class HgLVideoTrimmer extends FrameLayout {
 
@@ -192,26 +194,26 @@ public class HgLVideoTrimmer extends FrameLayout {
 
         mRangeSeekBarView.addOnRangeSeekBarListener(mVideoProgressIndicator);
         mRangeSeekBarView.addOnRangeSeekBarListener(new OnRangeSeekBarListener() {
-                                                        @Override
-                                                        public void onCreate(RangeSeekBarView rangeSeekBarView, int index, float value) {
+            @Override
+            public void onCreate(RangeSeekBarView rangeSeekBarView, int index, float value) {
 
-                                                        }
+            }
 
-                                                        @Override
-                                                        public void onSeek(RangeSeekBarView rangeSeekBarView, int index, float value) {
-                                                            onSeekThumbs(index, value);
-                                                        }
+            @Override
+            public void onSeek(RangeSeekBarView rangeSeekBarView, int index, float value) {
+                onSeekThumbs(index, value);
+            }
 
-                                                        @Override
-                                                        public void onSeekStart(RangeSeekBarView rangeSeekBarView, int index, float value) {
+            @Override
+            public void onSeekStart(RangeSeekBarView rangeSeekBarView, int index, float value) {
 
-                                                        }
+            }
 
-                                                        @Override
-                                                        public void onSeekStop(RangeSeekBarView rangeSeekBarView, int index, float value) {
-                                                            onStopSeekThumbs();
-                                                        }
-                                                    });
+            @Override
+            public void onSeekStop(RangeSeekBarView rangeSeekBarView, int index, float value) {
+                onStopSeekThumbs();
+            }
+        });
 
         mHolderTopView.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
@@ -333,14 +335,8 @@ public class HgLVideoTrimmer extends FrameLayout {
 
     private String getDestinationPath() {
         if (mFinalPath == null) {
-//            File folder = Environment.getExternalStorageDirectory();
-            String root = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES).toString();
-            File myDir = new File(root + "/MergedVideos");
-            if(!myDir.exists())
-                myDir.mkdirs();
-            mFinalPath = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES).getAbsolutePath();
-            mFinalPath += "/MergedVideos/";
-//            mFinalPath = folder.getPath() + File.separator;
+            File folder = Environment.getExternalStorageDirectory();
+            mFinalPath = folder.getPath() + File.separator;
             Log.d(TAG, "Using default path " + mFinalPath);
         }
         return mFinalPath;
@@ -570,9 +566,9 @@ public class HgLVideoTrimmer extends FrameLayout {
      */
     @SuppressWarnings("unused")
     public void setMaxDuration(int maxDuration) {
-       // mMaxDuration = maxDuration * 1000;
+        // mMaxDuration = maxDuration * 1000;
         mMaxDuration = maxDuration;
-     }
+    }
 
     /**
      * Sets the uri of the video to be trimmer
